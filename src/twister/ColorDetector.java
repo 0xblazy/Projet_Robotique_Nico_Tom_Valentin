@@ -5,14 +5,25 @@ import lejos.hardware.sensor.EV3ColorSensor;
 import lejos.robotics.SampleProvider;
 import lejos.robotics.subsumption.Behavior;
 
-public class ColorDetector implements Behavior {
+/**
+ * Behavior chargé de détecter la couleur via le EV3ColorSensor.
+ * 
+ * @author nicolas-carbonnier
+ */
+public class ColorDetector implements Behavior, TwisterColor {
 
 	private EV3ColorSensor colorSensor;
 	private SampleProvider colorSample;
 	private float[] sample;
 	private int offset;
 	
-	// Constructor
+	/**
+	 * Constructeur.
+	 * 
+	 * @param _colorSensor Capteur de couleur.
+	 * @param _sample Tableau de stockage des données obtenues par les capteurs.
+	 * @param _offset Décalage dans le tableau _sample.
+	 */
 	public ColorDetector(EV3ColorSensor _colorSensor, float[] _sample, int _offset) {
 		this.colorSensor = _colorSensor;
 		this.sample = _sample;
@@ -21,9 +32,33 @@ public class ColorDetector implements Behavior {
 		this.colorSample = this.colorSensor.getRGBMode();
 	}
 	
-	// Determine the color detected by sensor
+	/**
+	 * Détermine la couleur passée en paramètre en calculant la distance euclidienne avec chaque couleur du Twister.
+	 * 
+	 * @param _rgb Code RGB fournis par le EV3ColorSensor.
+	 * @return Code de la couleur détectée.
+	 */
 	private int getColor(int[] _rgb) {
-		return 0;
+		// Calcul de la distance euclidienne avec la couleur BLACK et définition de la couleur par défaut
+		double distance = Math.sqrt(
+				(RGBs[0][0] - _rgb[0])*(RGBs[0][0] - _rgb[0]) + 
+				(RGBs[0][1] - _rgb[1])*(RGBs[0][1] - _rgb[1]) + 
+				(RGBs[0][2] - _rgb[2])*(RGBs[0][2] - _rgb[2]));
+		int color = COLORS_CODE[0];
+		
+		// Test de chaque couleur pour déterminer la bonne
+		for (int i = 1 ; i < RGBs.length ; i++) {
+			double d = Math.sqrt(
+				(RGBs[i][0] - _rgb[0])*(RGBs[i][0] - _rgb[0]) + 
+				(RGBs[i][1] - _rgb[1])*(RGBs[i][1] - _rgb[1]) + 
+				(RGBs[i][2] - _rgb[2])*(RGBs[i][2] - _rgb[2]));
+			if (d < distance) {
+				distance = d;
+				color = COLORS_CODE[i];
+			}
+		}
+		
+		return color;
 	}
 	
 	@Override
@@ -35,7 +70,7 @@ public class ColorDetector implements Behavior {
 	public void action() {
 		this.colorSample.fetchSample(this.sample, this.offset);
 		int rgb[] = new int[3];
-		for (int i = 0 ; i < 3 ; i++) {
+		for (int i = this.offset ; i < 3 + this.offset ; i++) {
 			rgb[i] = (int) (this.sample[i] * 1000);
 			if (rgb[i] > 255) rgb[i] = 255;
 		}
@@ -43,7 +78,9 @@ public class ColorDetector implements Behavior {
 		System.out.println("Red:" + rgb[0]);
 		System.out.println("Green:" + rgb[1]);
 		System.out.println("Blue:" + rgb[2]);
-		System.out.println("Color: " + this.getColor(rgb));
+		
+		int color = this.getColor(rgb);
+		System.out.println("Color: " + color + " (" + COLORS[color] + ")");
 		System.out.println();
 	}
 
