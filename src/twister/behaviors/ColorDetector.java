@@ -7,7 +7,7 @@ import lejos.robotics.subsumption.Behavior;
 import twister.models.TwisterColor;
 
 /**
- * Behavior charge de detecter la couleur via le EV3ColorSensor.
+ * Behavior charg� de d�tecter la couleur via le EV3ColorSensor.
  * 
  * @author nicolas-carbonnier
  */
@@ -22,8 +22,8 @@ public class ColorDetector implements Behavior, TwisterColor {
 	 * Constructeur.
 	 * 
 	 * @param _colorSensor Capteur de couleur.
-	 * @param _sample Tableau de stockage des donnees obtenues par les capteurs.
-	 * @param _offset Decalage dans le tableau _sample.
+	 * @param _sample Tableau de stockage des donn�es obtenues par les capteurs.
+	 * @param _offset D�calage dans le tableau _sample.
 	 */
 	public ColorDetector(EV3ColorSensor _colorSensor, float[] _sample, int _offset) {
 		this.colorSensor = _colorSensor;
@@ -34,20 +34,20 @@ public class ColorDetector implements Behavior, TwisterColor {
 	}
 	
 	/**
-	 * Determine la couleur passee en parametre en calculant la distance euclidienne avec chaque couleur du Twister.
+	 * D�termine la couleur pass�e en param�tre en calculant la distance euclidienne avec chaque couleur du Twister.
 	 * 
 	 * @param _rgb Code RGB fournis par le EV3ColorSensor.
-	 * @return Code de la couleur detectee.
+	 * @return Code de la couleur d�tect�e.
 	 */
 	private int getColor(int[] _rgb) {
-		// Calcul de la distance euclidienne avec la couleur BLACK et definition de la couleur par d�faut
+		// Calcul de la distance euclidienne avec la couleur BLACK et d�finition de la couleur par d�faut
 		double distance = Math.sqrt(
 				(RGBs[0][0] - _rgb[0])*(RGBs[0][0] - _rgb[0]) + 
 				(RGBs[0][1] - _rgb[1])*(RGBs[0][1] - _rgb[1]) + 
 				(RGBs[0][2] - _rgb[2])*(RGBs[0][2] - _rgb[2]));
 		int color = COLORS_CODE[0];
 		
-		// Test de chaque couleur pour determiner la bonne
+		// Test de chaque couleur pour d�terminer la bonne
 		for (int i = 1 ; i < RGBs.length ; i++) {
 			double d = Math.sqrt(
 				(RGBs[i][0] - _rgb[0])*(RGBs[i][0] - _rgb[0]) + 

@@ -8,7 +8,7 @@ package twister.models;
 public interface TwisterColor {
 
 	/**
-	 * Entiers representant les couleurs. <br>
+	 * Entiers reprï¿½sentant les couleurs. <br>
 	 * <br>
 	 * BLACK: 0<br>
 	 * WHITE: 1 <br>
@@ -46,7 +46,7 @@ public interface TwisterColor {
 		};
 	
 	/**
-	 * Chaines de caracteres des couleurs.
+	 * Chaînes de caractères des couleurs.
 	 */
 	static final String[] COLORS = {
 			"Black",

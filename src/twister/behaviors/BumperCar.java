@@ -6,7 +6,7 @@ import lejos.hardware.sensor.EV3ColorSensor;
 import lejos.robotics.Color;
 import lejos.robotics.subsumption.Arbitrator;
 import lejos.robotics.subsumption.Behavior;
-import twister.Quit;
+import twister.behaviors.Quit;
 
 /**
  * Classe main du projet.
@@ -44,5 +44,7 @@ public class BumperCar {
 		((Quit) quit).setArby(arby);
 		arby.go();
 	}
+	
+	
 
 }
