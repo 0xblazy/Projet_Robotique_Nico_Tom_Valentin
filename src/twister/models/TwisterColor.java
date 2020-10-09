@@ -37,7 +37,7 @@ public interface TwisterColor {
 	 * GREEN: 0,255,0
 	 */
 	static final int[][] RGBs = {
-			{0,0,0}, 		// BLACK
+			{1,0,0}, 		// BLACK
 			{255,255,255}, 	// WHITE
 			{255,0,0}, 		// RED
 			{255,128,0}, 	// ORANGE
