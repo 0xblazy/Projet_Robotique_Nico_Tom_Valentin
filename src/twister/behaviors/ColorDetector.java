@@ -85,14 +85,6 @@ public class ColorDetector implements Behavior, TwisterColor {
 		System.out.println();
 	}
 
-	/*
-	27,57,73 ; 25,53,72 ; 24 52 65 ; 32 62 81 ; 28 60 80
-	Bleu: 
-		Red: 27,2 min: 24 max: 28
-		Green:  56,8 min: 52 max: 62
-		Blue: 74,2 min : 65 max: 80
-		
-	 */
 	@Override
 	public void suppress() {}
 }
