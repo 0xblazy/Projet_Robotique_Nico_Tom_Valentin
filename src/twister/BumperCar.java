@@ -1,5 +1,6 @@
 package twister;
 
+import lejos.hardware.Battery;
 import lejos.hardware.Button;
 import lejos.hardware.port.SensorPort;
 import lejos.hardware.sensor.EV3ColorSensor;
@@ -23,6 +24,7 @@ public class BumperCar {
 	 */
 	public static void main(String[] args) {
 		System.out.println("Appuyez pour demarrer");
+		System.out.println("Batterie : " + (int)(Battery.getBatteryCurrent() * 100));
 		Button.waitForAnyPress();
 		
 		// Initialisation des capteurs

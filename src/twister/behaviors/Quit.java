@@ -7,7 +7,7 @@ import lejos.robotics.subsumption.Arbitrator;
 import lejos.robotics.subsumption.Behavior;
 
 /**
- * Behavior charge de quitter le programme lorsque l'on clique sur le bouton ESCAPE.
+ * Behavior charge de quitter le programme lorsque l'on clique sur le bouton ESCAPE ou que la batterie est sous le seuil.
  * 
  * @author nicolas-carbonnier
  */
@@ -21,10 +21,11 @@ public class Quit implements Behavior {
 	 * Constructeur.
 	 * 
 	 * @param _colorSensor Capteur de couleur.
+	 * @param _nb Niveau de batterie seuil.
 	 */
-	public Quit(EV3ColorSensor _colorSensor, int nb) {
+	public Quit(EV3ColorSensor _colorSensor, int _nb) {
 		this.colorSensor = _colorSensor;
-		this.nb = nb;
+		this.nb = _nb;
 	}
 	
 	/**
@@ -42,7 +43,7 @@ public class Quit implements Behavior {
 	 */
 	@Override
 	public boolean takeControl(){
-		return Battery.getBatteryCurrent() <= this.nb || Button.ESCAPE.isDown();
+		return ((int)(Battery.getBatteryCurrent() * 100)) <= this.nb || Button.ESCAPE.isDown();
 	}
 
 	@Override
