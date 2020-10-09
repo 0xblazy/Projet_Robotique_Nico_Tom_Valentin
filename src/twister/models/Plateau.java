@@ -23,7 +23,7 @@ public class Plateau {
 	 * Methode getColor
 	 * @param x
 	 * @param y
-	 * @return
+	 * @return plateau
 	 */
 	public int getColor(int x, int y) {
 		return this.plateau[x][y];

@@ -32,7 +32,7 @@ public class BumperCar {
 		
 		// Definition des Behavior
 		Behavior colorDetector = new ColorDetector(colorSensor, sample, 0);
-		Behavior quit = new Quit(colorSensor);
+		Behavior quit = new Quit(colorSensor, 10);
 		
 		Behavior[] behaviors = {
 				colorDetector,
