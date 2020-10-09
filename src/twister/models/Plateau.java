@@ -9,7 +9,7 @@ public class Plateau {
 	//LongueurEtLargeur 
 	
 	
-	//applique une couleur a une case du plateau 
+	//applique une couleur à une case du plateau 
 	public void setColor(int x, int y, int c) {
 		this.plateau[x][y]= c;
 	}
