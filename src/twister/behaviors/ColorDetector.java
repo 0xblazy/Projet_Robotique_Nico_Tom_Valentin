@@ -7,7 +7,7 @@ import lejos.robotics.subsumption.Behavior;
 import twister.models.TwisterColor;
 
 /**
- * Behavior charg� de d�tecter la couleur via le EV3ColorSensor.
+ * Behavior charge de detecter la couleur via le EV3ColorSensor.
  * 
  * @author nicolas-carbonnier
  */
