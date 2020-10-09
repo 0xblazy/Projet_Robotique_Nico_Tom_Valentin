@@ -1,4 +1,4 @@
-package twister;
+package twister.behaviors;
 
 import lejos.hardware.Button;
 import lejos.hardware.sensor.EV3ColorSensor;
@@ -6,7 +6,7 @@ import lejos.robotics.subsumption.Arbitrator;
 import lejos.robotics.subsumption.Behavior;
 
 /**
- * Behavior chargé de quitter le programme lorsque l'on clique sur le bouton ESCAPE.
+ * Behavior charge de quitter le programme lorsque l'on clique sur le bouton ESCAPE.
  * 
  * @author nicolas-carbonnier
  */
@@ -25,7 +25,7 @@ public class Quit implements Behavior {
 	}
 	
 	/**
-	 * Défini l'Arbitrator.
+	 * Defini l'Arbitrator.
 	 * 
 	 * @param _arby Arbitrator.
 	 */
