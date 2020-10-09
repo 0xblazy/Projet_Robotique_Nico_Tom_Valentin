@@ -37,16 +37,12 @@ public class Quit implements Behavior {
 	}
 
 	/**
-	 * Defini la méthode d'arret
+	 * Defini la methode d'arret
 	 * @return true 
 	 */
 	@Override
 	public boolean takeControl(){
-		if (Battery.getBatteryCurrent() >= this.nb || !Button.ESCAPE.isDown()) {
-			return false;
-		} else {
-			return true;
-		}
+		return Battery.getBatteryCurrent() <= this.nb || Button.ESCAPE.isDown();
 	}
 
 	@Override
