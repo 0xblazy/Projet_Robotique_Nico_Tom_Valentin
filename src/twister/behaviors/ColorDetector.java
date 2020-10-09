@@ -1,12 +1,13 @@
-package twister;
+package twister.behaviors;
 
 import lejos.hardware.Button;
 import lejos.hardware.sensor.EV3ColorSensor;
 import lejos.robotics.SampleProvider;
 import lejos.robotics.subsumption.Behavior;
+import twister.models.TwisterColor;
 
 /**
- * Behavior chargé de détecter la couleur via le EV3ColorSensor.
+ * Behavior chargï¿½ de dï¿½tecter la couleur via le EV3ColorSensor.
  * 
  * @author nicolas-carbonnier
  */
@@ -21,8 +22,8 @@ public class ColorDetector implements Behavior, TwisterColor {
 	 * Constructeur.
 	 * 
 	 * @param _colorSensor Capteur de couleur.
-	 * @param _sample Tableau de stockage des données obtenues par les capteurs.
-	 * @param _offset Décalage dans le tableau _sample.
+	 * @param _sample Tableau de stockage des donnï¿½es obtenues par les capteurs.
+	 * @param _offset Dï¿½calage dans le tableau _sample.
 	 */
 	public ColorDetector(EV3ColorSensor _colorSensor, float[] _sample, int _offset) {
 		this.colorSensor = _colorSensor;
@@ -33,20 +34,20 @@ public class ColorDetector implements Behavior, TwisterColor {
 	}
 	
 	/**
-	 * Détermine la couleur passée en paramètre en calculant la distance euclidienne avec chaque couleur du Twister.
+	 * Dï¿½termine la couleur passï¿½e en paramï¿½tre en calculant la distance euclidienne avec chaque couleur du Twister.
 	 * 
 	 * @param _rgb Code RGB fournis par le EV3ColorSensor.
-	 * @return Code de la couleur détectée.
+	 * @return Code de la couleur dï¿½tectï¿½e.
 	 */
 	private int getColor(int[] _rgb) {
-		// Calcul de la distance euclidienne avec la couleur BLACK et définition de la couleur par défaut
+		// Calcul de la distance euclidienne avec la couleur BLACK et dï¿½finition de la couleur par dï¿½faut
 		double distance = Math.sqrt(
 				(RGBs[0][0] - _rgb[0])*(RGBs[0][0] - _rgb[0]) + 
 				(RGBs[0][1] - _rgb[1])*(RGBs[0][1] - _rgb[1]) + 
 				(RGBs[0][2] - _rgb[2])*(RGBs[0][2] - _rgb[2]));
 		int color = COLORS_CODE[0];
 		
-		// Test de chaque couleur pour déterminer la bonne
+		// Test de chaque couleur pour dï¿½terminer la bonne
 		for (int i = 1 ; i < RGBs.length ; i++) {
 			double d = Math.sqrt(
 				(RGBs[i][0] - _rgb[0])*(RGBs[i][0] - _rgb[0]) + 

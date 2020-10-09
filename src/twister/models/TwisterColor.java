@@ -1,4 +1,4 @@
-package twister;
+package twister.models;
 
 /**
  * Interface regroupant les codes couleurs du jeu.
@@ -8,7 +8,7 @@ package twister;
 public interface TwisterColor {
 
 	/**
-	 * Entiers représentant les couleurs. <br>
+	 * Entiers reprï¿½sentant les couleurs. <br>
 	 * <br>
 	 * BLACK: 0<br>
 	 * WHITE: 1 <br>
@@ -46,7 +46,7 @@ public interface TwisterColor {
 		};
 	
 	/**
-	 * Chaînes de caractères des couleurs.
+	 * Chaï¿½nes de caractï¿½res des couleurs.
 	 */
 	static final String[] COLORS = {
 			"Black",

@@ -1,4 +1,4 @@
-package twister;
+package twister.behaviors;
 
 import lejos.hardware.Button;
 import lejos.hardware.port.SensorPort;
@@ -6,6 +6,7 @@ import lejos.hardware.sensor.EV3ColorSensor;
 import lejos.robotics.Color;
 import lejos.robotics.subsumption.Arbitrator;
 import lejos.robotics.subsumption.Behavior;
+import twister.Quit;
 
 /**
  * Classe main du projet.
@@ -15,7 +16,7 @@ import lejos.robotics.subsumption.Behavior;
 public class BumperCar {
 
 	/**
-	 * Appelée lors du lancement du programme.
+	 * Appelï¿½e lors du lancement du programme.
 	 * 
 	 * @param args Arguments de la ligne de commande.
 	 */
@@ -28,7 +29,7 @@ public class BumperCar {
 		colorSensor.setFloodlight(Color.WHITE);
 		float[] sample = new float[3];
 		
-		// Définition des Behavior
+		// Dï¿½finition des Behavior
 		Behavior colorDetector = new ColorDetector(colorSensor, sample, 0);
 		Behavior quit = new Quit(colorSensor);
 		
@@ -37,7 +38,7 @@ public class BumperCar {
 				quit
 			};
 		
-		// Définition de l'Arbitrator
+		// Dï¿½finition de l'Arbitrator
 		Arbitrator arby = new Arbitrator(behaviors);
 		((Quit) quit).setArby(arby);
 		arby.go();
