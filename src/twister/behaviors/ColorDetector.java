@@ -17,6 +17,7 @@ public class ColorDetector implements Behavior, TwisterColor {
 	private SampleProvider colorSample;
 	private float[] sample;
 	private int offset;
+	private boolean suppressed = false;
 	
 	/**
 	 * Constructeur.
@@ -69,6 +70,7 @@ public class ColorDetector implements Behavior, TwisterColor {
 
 	@Override
 	public void action() {
+		this.suppressed = false;
 		this.colorSample.fetchSample(this.sample, this.offset);
 		int rgb[] = new int[3];
 		for (int i = this.offset ; i < 3 + this.offset ; i++) {
@@ -86,5 +88,7 @@ public class ColorDetector implements Behavior, TwisterColor {
 	}
 
 	@Override
-	public void suppress() {}
+	public void suppress() {
+		this.suppressed = true;
+	}
 }

@@ -2,6 +2,7 @@ package twister;
 
 import lejos.hardware.Battery;
 import lejos.hardware.Button;
+import lejos.hardware.Sound;
 import lejos.hardware.port.SensorPort;
 import lejos.hardware.sensor.EV3ColorSensor;
 import lejos.robotics.Color;
@@ -24,7 +25,7 @@ public class BumperCar {
 	 */
 	public static void main(String[] args) {
 		System.out.println("Appuyez pour demarrer");
-		System.out.println("Batterie : " + (int)(Battery.getBatteryCurrent() * 100));
+		System.out.println("Batterie : " + Battery.getBatteryCurrent());
 		Button.waitForAnyPress();
 		
 		// Initialisation des capteurs
@@ -34,17 +35,33 @@ public class BumperCar {
 		
 		// Definition des Behavior
 		Behavior colorDetector = new ColorDetector(colorSensor, sample, 0);
-		Behavior quit = new Quit(colorSensor, 10);
+		Behavior quit = new Quit(colorSensor, 0.05f);
 		
 		Behavior[] behaviors = {
 				colorDetector,
 				quit
-			};
+		};
 		
 		// Definition de l'Arbitrator
 		Arbitrator arby = new Arbitrator(behaviors);
 		((Quit) quit).setArby(arby);
-		arby.go();
+		
+		// Lancement de l'Arbitrator et coupure du programme en cas d'erreur
+		try {
+			arby.go();			
+		} catch (Exception e) {
+			e.printStackTrace();
+			Sound.buzz();
+			
+			colorSensor.close();
+			
+			if (arby != null) {
+				arby.stop();
+			}
+			
+			Button.waitForAnyPress();
+			System.exit(0);
+		}
 	}
 
 }

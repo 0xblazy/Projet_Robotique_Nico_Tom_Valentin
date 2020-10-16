@@ -3,10 +3,10 @@ package twister.models;
 public class Plateau {
 	
 
-	public static int longueur = 7;
-	public static int largeur = 5;
-	public static int[][] plateau = new int[largeur][longueur];
-	//LongueurEtLargeur 
+	public final int hauteur = 7;
+	public final int largeur = 5;
+	public final int[][] plateau = new int[largeur][hauteur];
+	//HauteurEtLargeur 
 	
 	
 	/**
@@ -16,7 +16,7 @@ public class Plateau {
 	 * @param c
 	 */
 	public void setColor(int x, int y, int c) {
-		this.plateau[x][y]= c;
+		this.plateau[x][y] = c;
 	}
 	
 	/**
@@ -31,10 +31,10 @@ public class Plateau {
 	
 	/**
 	 * Methode get
-	 * @return longueur
+	 * @return hauteur
 	 */
-	public int getLongueur() {
-		return this.longueur;
+	public int getHauteur() {
+		return this.hauteur;
 	}
 	
 	/**

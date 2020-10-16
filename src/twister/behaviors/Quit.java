@@ -1,7 +1,10 @@
 package twister.behaviors;
 
+import javax.sound.midi.Soundbank;
+
 import lejos.hardware.Battery;
 import lejos.hardware.Button;
+import lejos.hardware.Sound;
 import lejos.hardware.sensor.EV3ColorSensor;
 import lejos.robotics.subsumption.Arbitrator;
 import lejos.robotics.subsumption.Behavior;
@@ -15,17 +18,18 @@ public class Quit implements Behavior {
 	
 	private EV3ColorSensor colorSensor;
 	private Arbitrator arby;
-	private int nb;
+	private float lowLevel;
+	private boolean suppressed = false;
 	
 	/**
 	 * Constructeur.
 	 * 
 	 * @param _colorSensor Capteur de couleur.
-	 * @param _nb Niveau de batterie seuil.
+	 * @param _lowLevel Niveau de batterie seuil.
 	 */
-	public Quit(EV3ColorSensor _colorSensor, int _nb) {
+	public Quit(EV3ColorSensor _colorSensor, float _lowLevel) {
 		this.colorSensor = _colorSensor;
-		this.nb = _nb;
+		this.lowLevel = _lowLevel;
 	}
 	
 	/**
@@ -38,16 +42,24 @@ public class Quit implements Behavior {
 	}
 
 	/**
-	 * Defini la methode d'arret
+	 * Defini la methode de prise de controle.
 	 * @return true 
 	 */
 	@Override
 	public boolean takeControl(){
-		return ((int)(Battery.getBatteryCurrent() * 100)) <= this.nb || Button.ESCAPE.isDown();
+		return (Button.ESCAPE.isDown() || Battery.getBatteryCurrent() <= this.lowLevel);
 	}
 
 	@Override
 	public void action() {
+		this.suppressed = false;
+		
+		if (Battery.getBatteryCurrent() <= this.lowLevel) { // 2 bips si le programme s'arrête à cause de la batterie, un seul sinon
+			Sound.twoBeeps();
+		} else {
+			Sound.beep();
+		}
+		
 		colorSensor.close();
 		
 		if (arby != null) {
@@ -58,5 +70,7 @@ public class Quit implements Behavior {
 	}
 
 	@Override
-	public void suppress() {}
+	public void suppress() {
+		this.suppressed = true;
+	}
 }
