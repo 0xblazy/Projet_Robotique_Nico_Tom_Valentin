@@ -44,5 +44,27 @@ public class Plateau {
 	public int getLargeur() {
 		return this.largeur;
 	}
+		
 	
-}
+	
+	public int [][] casesDeLaCouleur(int couleur){
+			int[][] liste = new int[17][2];
+			int compteur = 0;
+			for (int i = 0; i < 5; i++) {
+				for (int j = 0; j < 7; j++) {
+					if (this.plateau[i][j] == couleur) {
+						liste[compteur][0] = i;
+						liste[compteur][1] = j;
+						compteur++;
+					}
+					
+				}
+			}
+			return liste;
+		}
+		
+
+	}
+
+	
+
