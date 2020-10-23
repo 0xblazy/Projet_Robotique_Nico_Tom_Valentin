@@ -10,49 +10,49 @@ public interface Parameters {
 	
 	/**
 	 * Hauteur du plateau. <br>
-	 * height = {@value}
+	 * HEIGHT = {@value}
 	 */
-	static final int height = 7;
+	static final int HEIGHT = 7;
 	/**
 	 * Largeur du plateau. <br>
-	 * width = {@value}
+	 * WIDTH = {@value}
 	 */
-	static final int width = 5;
+	static final int WIDTH = 5;
 	/**
 	 * Taille d'une case en mm. <br>
-	 * size = {@value}
+	 * SIZE = {@value}
 	 */
-	static final int size = 135;
+	static final int SIZE = 135;
 	
 	/**
 	 * Diametre des roues en mm. <br>
-	 * wheelDiameter = {@value}
+	 * WHEEL_DIAMETER = {@value}
 	 */
-	static final double wheelDiameter = 56.;
+	static final double WHEEL_DIAMETER = 56.;
 	/**
 	 * Decalage des roues par rapport a l'axe central en mm. <br>
-	 * wheelOffset = {@value}
+	 * WHEEL_OFFSET = {@value}
 	 */
-	static final double wheelOffset = 60.;
+	static final double WHEEL_OFFSET = 60.;
 	/**
 	 * Vitesse lineaire lorsque le robot avance ou recule. <br>
-	 * moveLinearSpeed = {@value}
+	 * MOVE_LINEAR_SPEED = {@value}
 	 */
-	static final double moveLinearSpeed = 70.;
+	static final double MOVE_LINEAR_SPEED = 70.;
 	/**
 	 * Vitesse de rotation lorsque le robot avance ou recule. <br>
-	 * moveAngularSpeed = {@value}
+	 * MOVE_ANGULAR_SPEED = {@value}
 	 */
-	static final double moveAngularSpeed = 90.;
+	static final double MOVE_ANGULAR_SPEED = 90.;
 	/**
 	 * Vitesse lineaire lorsque le robot tourne. <br>
-	 * turnLinearSpeed = {@value}
+	 * TURN_LINEAR_SPEED = {@value}
 	 */
-	static final double turnLinearSpeed = 20.;
+	static final double TURN_LINEAR_SPEED = 20.;
 	/**
 	 * Vitesse de rotation lorsque le robot tourne. <br>
-	 * turnAngularSpeed = {@value}
+	 * TURN_ANGULAR_SPEED = {@value}
 	 */
-	static final double turnAngularSpeed = 60.;
+	static final double TURN_ANGULAR_SPEED = 60.;
 	
 }

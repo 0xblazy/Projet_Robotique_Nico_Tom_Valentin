@@ -36,20 +36,24 @@ public class Move implements Behavior {
 	public void action() {
 		this.suppressed = false;
 		
-		pilot.setLinearSpeed(Parameters.moveLinearSpeed);
-		pilot.setAngularSpeed(Parameters.moveAngularSpeed);
+		pilot.setLinearSpeed(Parameters.MOVE_LINEAR_SPEED);
+		pilot.setAngularSpeed(Parameters.MOVE_ANGULAR_SPEED);
 		
 		// En avant si moveForward, en arriere sinon
-		if (this.robot.moveForward()) {			
-			pilot.travel(Parameters.size);
+		if (this.robot.moveForward()) {
+			System.out.println("Avance");
+			pilot.travel(Parameters.SIZE);
 		} else {
-			pilot.travel(-Parameters.size);
+			System.out.println("Recule");
+			pilot.travel(-Parameters.SIZE);
 		}
 		while(pilot.isMoving()) Thread.yield();
 		
 		// Repasse les booleens de deplacement a faux
 		if (this.robot.moveForward()) this.robot.moveForward(false);
 		if (this.robot.moveBackward()) this.robot.moveBackward(false);
+		
+		this.notifyAll();
 	}
 
 	@Override

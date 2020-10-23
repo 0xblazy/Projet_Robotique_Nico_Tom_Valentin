@@ -5,6 +5,7 @@ import javax.sound.midi.Soundbank;
 import lejos.hardware.Battery;
 import lejos.hardware.Button;
 import lejos.hardware.Sound;
+import lejos.hardware.motor.Motor;
 import lejos.hardware.sensor.EV3ColorSensor;
 import lejos.robotics.subsumption.Arbitrator;
 import lejos.robotics.subsumption.Behavior;
@@ -65,6 +66,9 @@ public class Quit implements Behavior {
 		if (arby != null) {
 			arby.stop();
 		}
+		
+		Motor.B.stop(true);
+		Motor.C.stop(true);
 		
 		System.exit(0);
 	}

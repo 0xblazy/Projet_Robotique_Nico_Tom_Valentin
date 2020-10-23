@@ -36,14 +36,16 @@ public class Turn implements Behavior {
 	public void action() {
 		this.suppressed = false;
 		
-		pilot.setLinearSpeed(Parameters.turnLinearSpeed);
-		pilot.setAngularSpeed(Parameters.turnAngularSpeed);
+		pilot.setLinearSpeed(Parameters.TURN_LINEAR_SPEED);
+		pilot.setAngularSpeed(Parameters.TURN_ANGULAR_SPEED);
 		while(pilot.isMoving())Thread.yield();
 		
 		// A gauche si turnLeft, a droite sinon
-		if (this.robot.turnLeft()) {			
+		if (this.robot.turnLeft()) {
+			System.out.println("Gauche");
 			pilot.rotate(-90);
 		} else {
+			System.out.println("Droite");
 			pilot.rotate(90);
 		}
 		while(pilot.isMoving())Thread.yield();
@@ -51,6 +53,8 @@ public class Turn implements Behavior {
 		// Repasse les booleens de rotation a faux
 		if (this.robot.turnLeft()) this.robot.turnLeft(false);
 		if (this.robot.turnRight()) this.robot.turnRight(false);
+		
+		this.notifyAll();
 	}
 
 	@Override
