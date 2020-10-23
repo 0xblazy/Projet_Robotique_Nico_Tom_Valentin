@@ -10,12 +10,12 @@ public interface TwisterColor {
 	/**
 	 * Entiers representant les couleurs. <br>
 	 * <br>
-	 * BLACK: 0<br>
+	 * BLACK: 0 <br>
 	 * WHITE: 1 <br>
-	 * RED: 2<br>
-	 * ORANGE: 3<br>
-	 * BLUE: 5 <br>
-	 * GREEN: 6
+	 * RED: 2 <br>
+	 * ORANGE: 3 <br>
+	 * BLUE: 4 <br>
+	 * GREEN: 5
 	 */
 	static final int[] COLORS_CODE = {
 			0, 	// BLACK
@@ -27,14 +27,14 @@ public interface TwisterColor {
 		};
 	
 	/**
-	 * Codes RGB des couleurs.<br>
+	 * Codes RGB des couleurs. <br>
 	 * <br>
 	 * BLACK: 0,0,0<br>
-	 * WHITE: 255,255,255<br>
-	 * RED: 255,0,0<br>
-	 * ORANGE: 255,128,0<br>
-	 * BLUE: 0,0,255<br>
-	 * GREEN: 0,255,0
+	 * WHITE: 255,255,255 <br>
+	 * RED: 186,47,36 <br>
+	 * ORANGE: 185,80,37 <br>
+	 * BLUE: 31,61,77 <br>
+	 * GREEN: 61,143,48 <br>
 	 */
 	static final int[][] RGBs = {
 			{0,0,0}, 		// BLACK
