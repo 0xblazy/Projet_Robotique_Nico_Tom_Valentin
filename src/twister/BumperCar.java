@@ -44,6 +44,9 @@ public class BumperCar {
 				WheeledChassis.modelWheel(Motor.C, Parameters.WHEEL_DIAMETER).offset(Parameters.WHEEL_OFFSET)
 		}, 2));
 		Robot robot = new Robot(0, 4);
+		System.out.println("robot initialise, appuyez pour continuer");
+		
+		Button.waitForAnyPress();
 		
 		// Initialisation du plateau
 		Plateau board = new Plateau();
@@ -68,13 +71,21 @@ public class BumperCar {
 				quit
 		};
 		
+		
+		// Choix du type de cartographie 
+		choixCarto();
+		
+		
+		System.out.println("cartographie choisie, appuyez pour continuer");
+		Button.waitForAnyPress();
 		// Definition de l'Arbitrator
 		Arbitrator arby = new Arbitrator(behaviors);
 		((Quit) quit).setArby(arby);
 		
 		// Lancement de l'Arbitrator et coupure du programme en cas d'erreur
 		try {
-			arby.go();			
+			arby.go();
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 			Sound.buzz();
@@ -89,5 +100,29 @@ public class BumperCar {
 			System.exit(0);
 		}
 	}
+	
+	
+	public static void choixCarto() {
+		System.out.println("Choix de Cartographie:" + "\n" + "Boutton du haut : Type 1" + "\n" + "Boutton du bas : Type 2");
+		
+		int check = Button.waitForAnyPress();
+		switch (check) {
+		
+		case Button.ID_UP: 
+			System.out.println("Type 1 choisi");
+			//TODO : init carto 1
+			break;
+			
+		case Button.ID_DOWN:
+			System.out.println("Type 2 choisi");
+			//TODO : init carto 2
+			break;
+			
+		default : 
+			System.out.println("pute");
+
+}
+
+}
 
 }
