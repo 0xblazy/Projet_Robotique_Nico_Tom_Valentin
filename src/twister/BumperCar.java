@@ -16,7 +16,7 @@ import twister.behaviors.ColorDetector;
 import twister.behaviors.Move;
 import twister.behaviors.Quit;
 import twister.behaviors.Turn;
-import twister.cartographie.Cartographie;
+import twister.cartography.Cartography;
 import twister.models.Parameters;
 import twister.models.Plateau;
 import twister.models.Robot;
@@ -44,9 +44,6 @@ public class BumperCar {
 				WheeledChassis.modelWheel(Motor.C, Parameters.WHEEL_DIAMETER).offset(Parameters.WHEEL_OFFSET)
 		}, 2));
 		Robot robot = new Robot(0, 4);
-		System.out.println("robot initialise, appuyez pour continuer");
-		
-		Button.waitForAnyPress();
 		
 		// Initialisation du plateau
 		Plateau board = new Plateau();
@@ -56,41 +53,45 @@ public class BumperCar {
 		colorSensor.setFloodlight(Color.WHITE);
 		float[] sample = new float[3];
 		
+		// Initialisation de la cartographie
+		Cartography cartography = new Cartography(robot, pilot);
+		
 		// Definition des Behavior
-		Behavior cartographie = new Cartographie(robot, pilot);
 		Behavior move = new Move(robot, pilot);
 		Behavior turn = new Turn(robot, pilot);
 		Behavior colorDetector = new ColorDetector(colorSensor, sample, 0);
 		Behavior quit = new Quit(colorSensor, 0.05f);
 		
 		Behavior[] behaviors = {
-				cartographie,
 				move,
 				turn,
 				colorDetector,
 				quit
 		};
 		
-		
-		// Choix du type de cartographie 
 		choixCarto();
-		
 		
 		System.out.println("cartographie choisie, appuyez pour continuer");
 		Button.waitForAnyPress();
+		
 		// Definition de l'Arbitrator
 		Arbitrator arby = new Arbitrator(behaviors);
 		((Quit) quit).setArby(arby);
 		
 		// Lancement de l'Arbitrator et coupure du programme en cas d'erreur
 		try {
-			arby.go();
-			
+			((Move) move).setThread(cartography);
+			((Turn) turn).setThread(cartography);
+			((ColorDetector) colorDetector).setThread(cartography);
+			((Quit) quit).setThread(cartography);
+			cartography.start();
+			arby.go();			
 		} catch (Exception e) {
 			e.printStackTrace();
 			Sound.buzz();
 			
 			colorSensor.close();
+			cartography.interrupt();
 			
 			if (arby != null) {
 				arby.stop();

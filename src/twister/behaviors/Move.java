@@ -14,6 +14,7 @@ public class Move implements Behavior {
 	
 	private Robot robot;
 	private MovePilot pilot;
+	private Thread thread;
 	private boolean suppressed = false;
 	
 	/**
@@ -25,6 +26,10 @@ public class Move implements Behavior {
 	public Move(Robot _robot, MovePilot _pilot) {
 		this.robot = _robot;
 		this.pilot = _pilot;
+	}
+	
+	public void setThread(Thread _thread) {
+		this.thread = _thread;
 	}
 
 	@Override
@@ -53,7 +58,13 @@ public class Move implements Behavior {
 		if (this.robot.moveForward()) this.robot.moveForward(false);
 		if (this.robot.moveBackward()) this.robot.moveBackward(false);
 		
-		this.notifyAll();
+		if (this.thread != null) {
+			System.out.println("Thread present");
+			synchronized (this.thread) {
+				System.out.println("Thread notifie");
+				thread.notify();
+			}
+		}
 	}
 
 	@Override

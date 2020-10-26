@@ -17,6 +17,7 @@ public class ColorDetector implements Behavior, TwisterColor {
 	private SampleProvider colorSample;
 	private float[] sample;
 	private int offset;
+	private Thread thread;
 	private boolean suppressed = false;
 	
 	/**
@@ -63,6 +64,10 @@ public class ColorDetector implements Behavior, TwisterColor {
 		return color;
 	}
 	
+	public void setThread(Thread _thread) {
+		this.thread = _thread;
+	}
+	
 	@Override
 	public boolean takeControl() {
 		return Button.RIGHT.isDown();
@@ -85,6 +90,14 @@ public class ColorDetector implements Behavior, TwisterColor {
 		int color = this.getColor(rgb);
 		System.out.println("Color: " + color + " (" + COLORS[color] + ")");
 		System.out.println();
+		
+		if (this.thread != null) {
+			System.out.println("Thread present");
+			synchronized (this.thread) {
+				System.out.println("Thread notifie");
+				thread.notify();
+			}
+		}
 	}
 
 	@Override

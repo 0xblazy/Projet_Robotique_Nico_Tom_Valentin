@@ -14,6 +14,7 @@ public class Turn implements Behavior {
 	
 	private Robot robot;
 	private MovePilot pilot;
+	private Thread thread;
 	private boolean suppressed = false;
 	
 	/**
@@ -25,6 +26,10 @@ public class Turn implements Behavior {
 	public Turn(Robot _robot, MovePilot _pilot) {
 		this.robot = _robot;
 		this.pilot = _pilot;
+	}
+	
+	public void setThread(Thread _thread) {
+		this.thread = _thread;
 	}
 
 	@Override
@@ -43,10 +48,10 @@ public class Turn implements Behavior {
 		// A gauche si turnLeft, a droite sinon
 		if (this.robot.turnLeft()) {
 			System.out.println("Gauche");
-			pilot.rotate(-90);
+			pilot.rotate(-80);
 		} else {
 			System.out.println("Droite");
-			pilot.rotate(90);
+			pilot.rotate(80);
 		}
 		while(pilot.isMoving())Thread.yield();
 
@@ -54,7 +59,13 @@ public class Turn implements Behavior {
 		if (this.robot.turnLeft()) this.robot.turnLeft(false);
 		if (this.robot.turnRight()) this.robot.turnRight(false);
 		
-		this.notifyAll();
+		if (this.thread != null) {
+			System.out.println("Thread present");
+			synchronized (this.thread) {
+				System.out.println("Thread notifie");
+				thread.notify();
+			}
+		}
 	}
 
 	@Override
