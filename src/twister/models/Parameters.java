@@ -9,6 +9,31 @@ package twister.models;
 public interface Parameters {
 	
 	/**
+	 * Direction UP = {@value} 
+	 */
+	static final int UP = 0;
+	/**
+	 * Direction DOWN = {@value}
+	 */
+	static final int DOWN = 1;
+	/**
+	 * Direction RIGHT = {@value}
+	 */
+	static final int RIGHT = 2;
+	/**
+	 * Direction LEFT = {@value}
+	 */
+	static final int LEFT = 3;
+	
+	static final String[] DIRECTIONS = {
+			"Haut",
+			"Bas",
+			"Droite",
+			"Gauche"
+	};
+	
+	
+	/**
 	 * Hauteur du plateau. <br>
 	 * HEIGHT = {@value}
 	 */

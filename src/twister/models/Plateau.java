@@ -2,7 +2,7 @@ package twister.models;
 
 public class Plateau {
 	
-	public final int[][] plateau = new int[Parameters.WIDTH][Parameters.HEIGHT];	
+	public final int[][] plateau = new int[Parameters.HEIGHT][Parameters.WIDTH];	
 	
 	/**
 	 * Methode setColor 
@@ -10,8 +10,8 @@ public class Plateau {
 	 * @param y
 	 * @param c
 	 */
-	public void setColor(int x, int y, int c) {
-		this.plateau[x][y] = c;
+	public void setColor(int _x, int _y, int _c) {
+		this.plateau[_y][_x] = _c;
 	}
 	
 	/**
@@ -20,8 +20,8 @@ public class Plateau {
 	 * @param y
 	 * @return plateau
 	 */
-	public int getColor(int x, int y) {
-		return this.plateau[x][y];
+	public int getColor(int _x, int _y) {
+		return this.plateau[_y][_x];
 	}		
 	
 	
@@ -30,7 +30,7 @@ public class Plateau {
 		int compteur = 0;
 		for (int i = 0; i < 5; i++) {
 			for (int j = 0; j < 7; j++) {
-				if (this.plateau[i][j] == couleur) {
+				if (this.plateau[j][i] == couleur) {
 					liste[compteur][0] = i;
 					liste[compteur][1] = j;
 					compteur++;

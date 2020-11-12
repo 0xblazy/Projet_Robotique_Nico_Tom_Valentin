@@ -46,11 +46,41 @@ public class Move implements Behavior {
 		
 		// En avant si moveForward, en arriere sinon
 		if (this.robot.moveForward()) {
-			System.out.println("Avance");
+			//System.out.println("Avance");
 			pilot.travel(Parameters.SIZE);
+			// Définition des nouvelles coordonnées
+			switch (this.robot.getDirection()) {
+				case Parameters.UP:
+					this.robot.setY(this.robot.getY() - 1);
+					break;
+				case Parameters.DOWN:
+					this.robot.setY(this.robot.getY() + 1);
+					break;
+				case Parameters.RIGHT:
+					this.robot.setX(this.robot.getX() + 1);
+					break;
+				case Parameters.LEFT:
+					this.robot.setX(this.robot.getX() - 1);
+					break;
+			}
 		} else {
-			System.out.println("Recule");
+			//System.out.println("Recule");
 			pilot.travel(-Parameters.SIZE);
+			// Définition des nouvelles coordonnées
+			switch (this.robot.getDirection()) {
+				case Parameters.UP:
+					this.robot.setY(this.robot.getY() + 1);
+					break;
+				case Parameters.DOWN:
+					this.robot.setY(this.robot.getY() - 1);
+					break;
+				case Parameters.RIGHT:
+					this.robot.setX(this.robot.getX() - 1);
+					break;
+				case Parameters.LEFT:
+					this.robot.setX(this.robot.getX() + 1);
+					break;
+			}
 		}
 		while(pilot.isMoving()) Thread.yield();
 		
@@ -59,9 +89,9 @@ public class Move implements Behavior {
 		if (this.robot.moveBackward()) this.robot.moveBackward(false);
 		
 		if (this.thread != null) {
-			System.out.println("Thread present");
+			//System.out.println("Thread present");
 			synchronized (this.thread) {
-				System.out.println("Thread notifie");
+				//System.out.println("Thread notifie");
 				thread.notify();
 			}
 		}

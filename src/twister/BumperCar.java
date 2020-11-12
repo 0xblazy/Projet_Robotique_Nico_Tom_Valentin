@@ -43,7 +43,7 @@ public class BumperCar {
 				WheeledChassis.modelWheel(Motor.B, Parameters.WHEEL_DIAMETER).offset(-Parameters.WHEEL_OFFSET),
 				WheeledChassis.modelWheel(Motor.C, Parameters.WHEEL_DIAMETER).offset(Parameters.WHEEL_OFFSET)
 		}, 2));
-		Robot robot = new Robot(0, 4);
+		Robot robot = new Robot(4, 0, Parameters.DOWN);
 		
 		// Initialisation du plateau
 		Plateau board = new Plateau();
@@ -60,7 +60,7 @@ public class BumperCar {
 		// Definition des Behavior
 		Behavior move = new Move(robot, pilot);
 		Behavior turn = new Turn(robot, pilot);
-		Behavior colorDetector = new ColorDetector(colorSensor, sample, 0);
+		Behavior colorDetector = new ColorDetector(robot, colorSensor, sample, 0);
 		Behavior quit = new Quit(colorSensor, 0.05f);
 		
 		Behavior[] behaviors = {
@@ -70,8 +70,6 @@ public class BumperCar {
 				quit
 		};
 		
-		
-		
 		System.out.println("cartographie choisie, appuyez pour continuer");
 		Button.waitForAnyPress();
 		
@@ -80,24 +78,30 @@ public class BumperCar {
 		((Quit) quit).setArby(arby);
 		
 		// Lancement de l'Arbitrator et coupure du programme en cas d'erreur
-		try {
-			((Move) move).setThread(cartography);
-			((Turn) turn).setThread(cartography);
-			((ColorDetector) colorDetector).setThread(cartography);
-			((Quit) quit).setThread(cartography);
-			cartography.start();
-			arby.go();			
-		} catch (Exception e) {
-			e.printStackTrace();
-			Sound.buzz();
-			
-			colorSensor.close();
-			cartography.interrupt();
-			
-			if (arby != null) {
-				arby.stop();
+		if (cartography != null) {
+			try {
+				((Move) move).setThread(cartography);
+				((Turn) turn).setThread(cartography);
+				((ColorDetector) colorDetector).setThread(cartography);
+				((Quit) quit).setThread(cartography);
+				cartography.start();
+				arby.go();			
+			} catch (Exception e) {
+				e.printStackTrace();
+				Sound.buzz();
+				
+				colorSensor.close();
+				cartography.interrupt();
+				
+				if (arby != null) {
+					arby.stop();
+				}
+				
+				Button.waitForAnyPress();
+				System.exit(0);
 			}
-			
+		} else {
+			System.out.println("Aucune cartographie selectionnee, appuyez pour quitter");
 			Button.waitForAnyPress();
 			System.exit(0);
 		}

@@ -1,9 +1,13 @@
 package twister.behaviors;
 
+import java.lang.reflect.Parameter;
+
 import lejos.hardware.Button;
 import lejos.hardware.sensor.EV3ColorSensor;
 import lejos.robotics.SampleProvider;
 import lejos.robotics.subsumption.Behavior;
+import twister.models.Parameters;
+import twister.models.Robot;
 import twister.models.TwisterColor;
 
 /**
@@ -13,6 +17,7 @@ import twister.models.TwisterColor;
  */
 public class ColorDetector implements Behavior, TwisterColor {
 
+	private Robot robot;
 	private EV3ColorSensor colorSensor;
 	private SampleProvider colorSample;
 	private float[] sample;
@@ -27,7 +32,8 @@ public class ColorDetector implements Behavior, TwisterColor {
 	 * @param _sample Tableau de stockage des donnees obtenues par les capteurs.
 	 * @param _offset Decalage dans le tableau _sample.
 	 */
-	public ColorDetector(EV3ColorSensor _colorSensor, float[] _sample, int _offset) {
+	public ColorDetector(Robot _robot, EV3ColorSensor _colorSensor, float[] _sample, int _offset) {
+		this.robot = _robot;
 		this.colorSensor = _colorSensor;
 		this.sample = _sample;
 		this.offset = _offset;
@@ -70,7 +76,7 @@ public class ColorDetector implements Behavior, TwisterColor {
 	
 	@Override
 	public boolean takeControl() {
-		return Button.RIGHT.isDown();
+		return this.robot.takeColor();
 	}
 
 	@Override
@@ -83,18 +89,23 @@ public class ColorDetector implements Behavior, TwisterColor {
 			if (rgb[i] > 255) rgb[i] = 255;
 		}
 		
-		System.out.println("Red:" + rgb[0]);
-		System.out.println("Green:" + rgb[1]);
-		System.out.println("Blue:" + rgb[2]);
+		//System.out.println("Red:" + rgb[0]);
+		//System.out.println("Green:" + rgb[1]);
+		//System.out.println("Blue:" + rgb[2]);
+		
+		System.out.println(Parameters.DIRECTIONS[this.robot.getDirection()]);
+		System.out.println("X: " + this.robot.getX() + " Y: " + this.robot.getY());
 		
 		int color = this.getColor(rgb);
 		System.out.println("Color: " + color + " (" + COLORS[color] + ")");
 		System.out.println();
 		
+		this.robot.takeColor(false);
+		
 		if (this.thread != null) {
-			System.out.println("Thread present");
+			//System.out.println("Thread present");
 			synchronized (this.thread) {
-				System.out.println("Thread notifie");
+				//System.out.println("Thread notifie");
 				thread.notify();
 			}
 		}

@@ -34,6 +34,16 @@ public class Cartography extends Thread {
 		
 		while (true) {
 			for(int occ = 0; occ < this.nbrOcc; occ++) {
+				this.robot.takeColor(true);
+				synchronized (this) {
+					try {
+						this.wait();
+					} catch (InterruptedException e) {
+						Thread.currentThread().interrupt();
+						break;
+					}
+				}
+				
 				if(occ == 4) {
 					this.robot.moveForward(true);
 					synchronized (this) {
@@ -45,6 +55,16 @@ public class Cartography extends Thread {
 						}
 					}
 					
+					this.robot.takeColor(true);
+					synchronized (this) {
+						try {
+							this.wait();
+						} catch (InterruptedException e) {
+							Thread.currentThread().interrupt();
+							break;
+						}
+					}
+					
 					this.robot.moveForward(true);
 					synchronized (this) {
 						try {
@@ -55,12 +75,23 @@ public class Cartography extends Thread {
 						}
 					}
 					
-					System.out.println("finir");
+					this.robot.takeColor(true);
+					synchronized (this) {
+						try {
+							this.wait();
+						} catch (InterruptedException e) {
+							Thread.currentThread().interrupt();
+							break;
+						}
+					}
+					
+					System.out.println("Cartographie terminee");
 					break;
 				}
+				   
 				for (int i = 0; i < this.height; i++) {
-					System.out.println("========");
-					System.out.println(i);
+					//System.out.println("========");
+					//System.out.println(i);
 					this.robot.moveForward(true);
 					synchronized (this) {
 						try {
@@ -68,6 +99,18 @@ public class Cartography extends Thread {
 						} catch (InterruptedException e) {
 							Thread.currentThread().interrupt();
 							break;
+						}
+					}
+					
+					if (i < this.height - 1) {
+						this.robot.takeColor(true);
+						synchronized (this) {
+							try {
+								this.wait();
+							} catch (InterruptedException e) {
+								Thread.currentThread().interrupt();
+								break;
+							}
 						}
 					}
 				}
@@ -82,9 +125,9 @@ public class Cartography extends Thread {
 				}
 				
 				this.height--;
-				System.out.println(this.height);
+				//System.out.println(this.height);
 				for (int j = 0; j < this.width; j++) {
-				   System.out.println(j);
+				   //System.out.println(j);
 				   this.robot.moveForward(true);
 				   synchronized (this) {
 						try {
@@ -95,9 +138,21 @@ public class Cartography extends Thread {
 						}
 					}
 				   
+				   if (j < this.width - 1) {
+					   this.robot.takeColor(true);
+					   synchronized (this) {
+							try {
+								this.wait();
+							} catch (InterruptedException e) {
+								Thread.currentThread().interrupt();
+								break;
+							}
+						}
+				   }
+				   
 				}
 				this.width--;
-				System.out.println(this.width);
+				//System.out.println(this.width);
 				this.robot.turnRight(true);
 				synchronized (this) {
 					try {
@@ -116,8 +171,7 @@ public class Cartography extends Thread {
 						Thread.currentThread().interrupt();
 						break;
 					}
-				}
-				
+				}				
 			}
 			break;
 		}

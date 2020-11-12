@@ -11,6 +11,7 @@ public class Robot {
 	 * Coordonnees du Robot.
 	 */
 	private int x,y;
+	private int direction;
 	// Booleens pour connaître les actions du Robot
 	private boolean moveForward = false;
 	private boolean moveBackward = false;
@@ -24,9 +25,10 @@ public class Robot {
 	 * @param _x Coordonnee x du Robot.
 	 * @param _y Coordonnee y du Robot.
 	 */
-	public Robot(int _x, int _y) {
+	public Robot(int _x, int _y, int _direction) {
 		this.x = _x;
 		this.y = _y;
+		this.direction = _direction;
 	}
 	
 	/**
@@ -39,12 +41,21 @@ public class Robot {
 	}
 	
 	/**
-	 * Setter pour y
+	 * Setter pour y.
 	 * 
 	 * @param _y Coordonnee y du Robot.
 	 */
 	public void setY(int _y) {
 		this.y = _y;
+	}
+	
+	/**
+	 * Setter pour la direction.
+	 * 
+	 * @param _direction Direction du Robot.
+	 */
+	public void setDirection(int _direction) {
+		this.direction = _direction;
 	}
 	
 	/**
@@ -99,6 +110,10 @@ public class Robot {
 	
 	public int getY() {
 		return this.y;
+	}
+	
+	public int getDirection() {
+		return this.direction;
 	}
 	
 	public boolean moveForward() {

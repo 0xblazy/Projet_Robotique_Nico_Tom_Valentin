@@ -47,11 +47,49 @@ public class Turn implements Behavior {
 		
 		// A gauche si turnLeft, a droite sinon
 		if (this.robot.turnLeft()) {
-			System.out.println("Gauche");
+			//System.out.println("Gauche");
 			pilot.rotate(-80);
+			// Définition de la nouvelle direction
+			switch (this.robot.getDirection()) {
+				case Parameters.UP:
+					this.robot.setDirection(Parameters.LEFT);
+					this.robot.setX(this.robot.getX() - 1);
+					break;
+				case Parameters.DOWN:
+					this.robot.setDirection(Parameters.RIGHT);
+					this.robot.setX(this.robot.getX() + 1);
+					break;
+				case Parameters.RIGHT:
+					this.robot.setDirection(Parameters.UP);
+					this.robot.setY(this.robot.getY() + 1);
+					break;
+				case Parameters.LEFT:
+					this.robot.setDirection(Parameters.DOWN);
+					this.robot.setY(this.robot.getY() - 1);
+					break;
+			}
 		} else {
-			System.out.println("Droite");
+			//System.out.println("Droite");
 			pilot.rotate(80);
+			// Définition de la nouvelle direction
+			switch (this.robot.getDirection()) {
+				case Parameters.UP:
+					this.robot.setDirection(Parameters.RIGHT);
+					this.robot.setY(this.robot.getY() + 1);
+					break;
+				case Parameters.DOWN:
+					this.robot.setDirection(Parameters.LEFT);
+					this.robot.setY(this.robot.getY() - 1);
+					break;
+				case Parameters.RIGHT:
+					this.robot.setDirection(Parameters.DOWN);
+					this.robot.setX(this.robot.getX() - 1);
+					break;
+				case Parameters.LEFT:
+					this.robot.setDirection(Parameters.UP);
+					this.robot.setX(this.robot.getX() + 1);
+					break;
+			}
 		}
 		while(pilot.isMoving())Thread.yield();
 
@@ -60,9 +98,9 @@ public class Turn implements Behavior {
 		if (this.robot.turnRight()) this.robot.turnRight(false);
 		
 		if (this.thread != null) {
-			System.out.println("Thread present");
+			//System.out.println("Thread present");
 			synchronized (this.thread) {
-				System.out.println("Thread notifie");
+				//System.out.println("Thread notifie");
 				thread.notify();
 			}
 		}
