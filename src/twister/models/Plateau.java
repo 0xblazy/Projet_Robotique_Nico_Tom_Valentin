@@ -41,7 +41,7 @@ public class Plateau {
 		return liste;
 	}
 	//TODO : A TESTER 
-	//Méthode qui prend toutes les cases de la coul
+	//Méthode qui prend toutes les cases de la couleur demandée, et ressort la plus proche du robot 
 	public int [][] caseLaPlusProche(Robot r, int c){
 		int xRobot = r.getX();
 		int yRobot = r.getY();

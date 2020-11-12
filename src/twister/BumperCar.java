@@ -54,7 +54,8 @@ public class BumperCar {
 		float[] sample = new float[3];
 		
 		// Initialisation de la cartographie
-		Cartography cartography = new Cartography(robot, pilot);
+		Cartography cartography = choixCarto(robot,pilot);
+		
 		
 		// Definition des Behavior
 		Behavior move = new Move(robot, pilot);
@@ -69,7 +70,7 @@ public class BumperCar {
 				quit
 		};
 		
-		choixCarto();
+		
 		
 		System.out.println("cartographie choisie, appuyez pour continuer");
 		Button.waitForAnyPress();
@@ -103,7 +104,7 @@ public class BumperCar {
 	}
 	
 	
-	public static void choixCarto() {
+	public static Cartography choixCarto (Robot robot, MovePilot pilot) {
 		System.out.println("Choix de Cartographie:" + "\n" + "Boutton du haut : Type 1" + "\n" + "Boutton du bas : Type 2");
 		
 		int check = Button.waitForAnyPress();
@@ -111,16 +112,19 @@ public class BumperCar {
 		
 		case Button.ID_UP: 
 			System.out.println("Type 1 choisi");
-			//TODO : init carto 1
-			break;
+			Cartography cartography = new Cartography(robot, pilot);
+			return cartography;
+			
 			
 		case Button.ID_DOWN:
 			System.out.println("Type 2 choisi");
-			//TODO : init carto 2
-			break;
+			
+			return null;
+			
 			
 		default : 
-			System.out.println("pute");
+			System.out.println("error");
+			return null;
 
 }
 
