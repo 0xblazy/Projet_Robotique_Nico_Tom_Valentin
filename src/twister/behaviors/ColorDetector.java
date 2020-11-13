@@ -1,8 +1,5 @@
 package twister.behaviors;
 
-import java.lang.reflect.Parameter;
-
-import lejos.hardware.Button;
 import lejos.hardware.sensor.EV3ColorSensor;
 import lejos.robotics.SampleProvider;
 import lejos.robotics.subsumption.Behavior;
@@ -89,16 +86,20 @@ public class ColorDetector implements Behavior, TwisterColor {
 			if (rgb[i] > 255) rgb[i] = 255;
 		}
 		
-		//System.out.println("Red:" + rgb[0]);
-		//System.out.println("Green:" + rgb[1]);
-		//System.out.println("Blue:" + rgb[2]);
+		System.out.println("Red:" + rgb[0]);
+		System.out.println("Green:" + rgb[1]);
+		System.out.println("Blue:" + rgb[2]);
 		
-		System.out.println(Parameters.DIRECTIONS[this.robot.getDirection()]);
-		System.out.println("X: " + this.robot.getX() + " Y: " + this.robot.getY());
+		//System.out.println(Parameters.DIRECTIONS[this.robot.getDirection()]);
+		//System.out.println("X: " + this.robot.getX() + " Y: " + this.robot.getY());
 		
 		int color = this.getColor(rgb);
 		System.out.println("Color: " + color + " (" + COLORS[color] + ")");
 		System.out.println();
+		
+		if (this.robot.takeColor()) {
+			this.robot.getBoard().setColor(this.robot.getX(), this.robot.getY(), color);
+		}
 		
 		this.robot.takeColor(false);
 		

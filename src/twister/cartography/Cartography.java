@@ -2,35 +2,40 @@ package twister.cartography;
 
 
 import lejos.hardware.Button;
-import lejos.robotics.navigation.MovePilot;
-import lejos.utility.Delay;
+import lejos.robotics.subsumption.Arbitrator;
 import twister.models.Parameters;
 import twister.models.Robot;
 
+/**
+ * Thread utilise pour la Cartographie.
+ * 
+ * @author Aetra
+ * @author nicolas-carbonnier
+ */
 public class Cartography extends Thread {
 	
 	private Robot robot;
-	private MovePilot pilot;
+	private Arbitrator arby;
 	
 	private int height = Parameters.HEIGHT;
 	private int width = Parameters.WIDTH;
 	
-	private int nbrOcc = 5;
+	private int nbrOcc = Parameters.WIDTH;
 	
-	public Cartography(Robot _robot, MovePilot _pilot) {
+	/**
+	 * Contructeur.
+	 * 
+	 * @param _robot Robot utilise pour la cartographie.
+	 */
+	public Cartography(Robot _robot, Arbitrator _arby) {
 		this.robot = _robot;
-		this.pilot = _pilot;
-	}
-	
-	public static void prelevementcouleur() {
-		System.out.println("color");
-		Delay.msDelay(2000);
+		this.arby = _arby;
 	}
 
 	@Override
 	public void run() {
-		System.out.println("Appuyez sur le bouton GAUCHE pour lancer la cartographie");
-		Button.LEFT.waitForPress();
+		System.out.println("Appuyez sur le bouton ENTER pour lancer la cartographie");
+		Button.ENTER.waitForPress();
 		
 		while (true) {
 			for(int occ = 0; occ < this.nbrOcc; occ++) {
@@ -174,6 +179,11 @@ public class Cartography extends Thread {
 				}				
 			}
 			break;
+		}
+		this.robot.getBoard().setCartographed(true);
+		System.out.println(this.robot.getBoard());
+		if (this.arby != null) {
+			//this.arby.stop();
 		}
 	}
 		

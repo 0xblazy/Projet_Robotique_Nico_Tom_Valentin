@@ -63,7 +63,7 @@ public interface Parameters {
 	 * Vitesse lineaire lorsque le robot avance ou recule. <br>
 	 * MOVE_LINEAR_SPEED = {@value}
 	 */
-	static final double MOVE_LINEAR_SPEED = 70.;
+	static final double MOVE_LINEAR_SPEED = 50.;
 	/**
 	 * Vitesse de rotation lorsque le robot avance ou recule. <br>
 	 * MOVE_ANGULAR_SPEED = {@value}
