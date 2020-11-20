@@ -84,9 +84,9 @@ public class Move extends ThreadBehavior {
 		if (this.robot.moveBackward()) this.robot.moveBackward(false);
 		
 		if (this.thread != null) {
-			System.out.println("Thread present");
+			//System.out.println("Thread present");
 			synchronized (this.thread) {
-				System.out.println("Thread notifie");
+				//System.out.println("Thread notifie");
 				this.thread.notify();
 			}
 		}

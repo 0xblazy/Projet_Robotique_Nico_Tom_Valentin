@@ -93,9 +93,9 @@ public class Turn extends ThreadBehavior {
 		if (this.robot.turnRight()) this.robot.turnRight(false);
 		
 		if (this.thread != null) {
-			System.out.println("Thread present");
+			//System.out.println("Thread present");
 			synchronized (this.thread) {
-				System.out.println("Thread notifie");
+				//System.out.println("Thread notifie");
 				this.thread.notify();
 			}
 		}

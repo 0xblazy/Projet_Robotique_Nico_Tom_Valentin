@@ -15,7 +15,7 @@ import twister.models.Robot;
 public class Cartography extends Thread {
 	
 	private Robot robot;
-	private Thread thread;
+	private Menu menu;
 	
 	private int height = Parameters.HEIGHT;
 	private int width = Parameters.WIDTH;
@@ -27,9 +27,9 @@ public class Cartography extends Thread {
 	 * 
 	 * @param _robot Robot utilise pour la cartographie.
 	 */
-	public Cartography(Robot _robot, Thread _thread) {
+	public Cartography(Robot _robot, Menu _menu) {
 		this.robot = _robot;
-		this.thread = _thread;
+		this.menu = _menu;
 	}
 
 	@Override
@@ -182,12 +182,12 @@ public class Cartography extends Thread {
 		}
 		this.robot.getBoard().setCartographed(true);
 		System.out.println(this.robot.getBoard());
-		System.out.println("foo");
-		if (this.thread != null) {
-			System.out.println("Thread present");
-			synchronized (this.thread) {
-				System.out.println("Thread notifie");
-				this.thread.notify();
+		//System.out.println("foo");
+		if (this.menu != null) {
+			//System.out.println("Thread present");
+			synchronized (this.menu) {
+				//System.out.println("Thread notifie");
+				this.menu.notify();
 			}
 		}
 	}
