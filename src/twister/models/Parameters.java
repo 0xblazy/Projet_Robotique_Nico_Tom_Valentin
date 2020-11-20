@@ -68,7 +68,7 @@ public interface Parameters {
 	 * Vitesse de rotation lorsque le robot avance ou recule. <br>
 	 * MOVE_ANGULAR_SPEED = {@value}
 	 */
-	static final double MOVE_ANGULAR_SPEED = 90.;
+	static final double MOVE_ANGULAR_SPEED = 50.;
 	/**
 	 * Vitesse lineaire lorsque le robot tourne. <br>
 	 * TURN_LINEAR_SPEED = {@value}

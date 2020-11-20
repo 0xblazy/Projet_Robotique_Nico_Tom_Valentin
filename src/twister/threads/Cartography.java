@@ -1,4 +1,4 @@
-package twister.cartography;
+package twister.threads;
 
 
 import lejos.hardware.Button;
@@ -15,7 +15,7 @@ import twister.models.Robot;
 public class Cartography extends Thread {
 	
 	private Robot robot;
-	private Arbitrator arby;
+	private Thread thread;
 	
 	private int height = Parameters.HEIGHT;
 	private int width = Parameters.WIDTH;
@@ -27,9 +27,9 @@ public class Cartography extends Thread {
 	 * 
 	 * @param _robot Robot utilise pour la cartographie.
 	 */
-	public Cartography(Robot _robot, Arbitrator _arby) {
+	public Cartography(Robot _robot, Thread _thread) {
 		this.robot = _robot;
-		this.arby = _arby;
+		this.thread = _thread;
 	}
 
 	@Override
@@ -182,8 +182,13 @@ public class Cartography extends Thread {
 		}
 		this.robot.getBoard().setCartographed(true);
 		System.out.println(this.robot.getBoard());
-		if (this.arby != null) {
-			//this.arby.stop();
+		System.out.println("foo");
+		if (this.thread != null) {
+			System.out.println("Thread present");
+			synchronized (this.thread) {
+				System.out.println("Thread notifie");
+				this.thread.notify();
+			}
 		}
 	}
 		

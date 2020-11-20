@@ -1,6 +1,5 @@
 package twister;
 
-import lejos.hardware.Battery;
 import lejos.hardware.Button;
 import lejos.hardware.Sound;
 import lejos.hardware.motor.Motor;
@@ -11,15 +10,15 @@ import lejos.robotics.chassis.Wheel;
 import lejos.robotics.chassis.WheeledChassis;
 import lejos.robotics.navigation.MovePilot;
 import lejos.robotics.subsumption.Arbitrator;
-import lejos.robotics.subsumption.Behavior;
 import twister.behaviors.ColorDetector;
 import twister.behaviors.Move;
 import twister.behaviors.Quit;
+import twister.behaviors.ThreadBehavior;
 import twister.behaviors.Turn;
-import twister.cartography.Cartography;
 import twister.models.Board;
 import twister.models.Parameters;
 import twister.models.Robot;
+import twister.threads.Menu;
 
 /**
  * Classe main du projet.
@@ -56,102 +55,45 @@ public class BumperCar {
 		float[] sample = new float[3];
 		
 		// Definition des Behavior
-		Behavior move = new Move(robot, pilot);
-		Behavior turn = new Turn(robot, pilot);
-		Behavior colorDetector = new ColorDetector(robot, colorSensor, sample, 0);
-		Behavior quit = new Quit(colorSensor, 0.05f);
+		ThreadBehavior move = new Move(robot, pilot);
+		ThreadBehavior turn = new Turn(robot, pilot);
+		ThreadBehavior colorDetector = new ColorDetector(robot, colorSensor, sample, 0);
+		ThreadBehavior quit = new Quit(colorSensor, 0.05f);
 		
-		Behavior[] behaviors = {
+		ThreadBehavior[] behaviors = {
 				move,
 				turn,
 				colorDetector,
 				quit
 		};
 		
-		// Boucle de cartographie
-		while (!board.isCartographed()) {
+		// Definition de l'Arbitrator
+		Arbitrator arby = new Arbitrator(behaviors);
+		((Quit) quit).setArby(arby);
+		
+		// Initialisation du Menu
+		Menu menu = new Menu(behaviors, arby, board, robot, colorSensor);
+		
+		// Lancement du Menu et de l'Arbitrator et coupure du programme en cas d'erreur
+		try {
+			menu.start();
+			arby.go();
+		} catch (Exception e) {
+			e.printStackTrace();
+			Sound.buzz();
 			
-			//System.out.println("cartographie choisie, appuyez pour continuer");
-			//Button.waitForAnyPress();
+			colorSensor.close();
+			menu.interrupt();
 			
-			// Definition de l'Arbitrator
-			Arbitrator arby = new Arbitrator(behaviors);
-			((Quit) quit).setArby(arby);
-			
-			// Initialisation de la cartographie
-			Cartography cartography = choixCarto(robot, arby);
-			
-			// Lancement de l'Arbitrator et coupure du programme en cas d'erreur
-			if (cartography != null) {
-				try {
-					((Move) move).setThread(cartography);
-					((Turn) turn).setThread(cartography);
-					((ColorDetector) colorDetector).setThread(cartography);
-					((Quit) quit).setThread(cartography);
-					cartography.start();
-					arby.go();
-					// Attend la fin de la cartographie
-					cartography.join();
-					System.out.println(board.isCartographed());
-					if (board.isCartographed()) {
-						colorSensor.close();
-						cartography.interrupt();
-						
-						Motor.B.stop(true);
-						Motor.C.stop(true);
-					}
-				} catch (Exception e) {
-					e.printStackTrace();
-					Sound.buzz();
-					
-					colorSensor.close();
-					cartography.interrupt();
-					
-					if (arby != null) {
-						arby.stop();
-					}
-					
-					Motor.B.stop(true);
-					Motor.C.stop(true);
-					
-					Button.waitForAnyPress();
-					System.exit(0);
-				}
-			} else {
-				System.out.println("Aucune cartographie selectionnee, appuyez pour continuer");
-				Button.waitForAnyPress();
+			if (arby != null) {
+				arby.stop();
 			}
-		}
-		
-		System.out.println("Fin du programme, appuyez sur ESCAPE pour sortir");
-		Button.ESCAPE.waitForPress();
-		System.exit(0);
-		
-	}
-	
-	/**
-	 * Menu de selection du type de Cartographie.
-	 * 
-	 * @param _robot Robot utilise pour la cartographie.
-	 * @return Cartographie choisie.
-	 */
-	private static Cartography choixCarto(Robot _robot, Arbitrator _arby) {
-		System.out.println("Choix de Cartographie :\n"
-				+ "  HAUT : Type 1\n"
-				+ "  BAS : Type 2");
-		
-		int check = Button.waitForAnyPress();
-		switch (check) {
-			case Button.ID_UP: 
-				System.out.println("Type 1 choisi");
-				return new Cartography(_robot, _arby);	
-			case Button.ID_DOWN:
-				System.out.println("Type 2 choisi");
-				
-				return null;				
-			default : 
-				System.out.println("error");
-				return null;
+			
+			Motor.B.stop(true);
+			Motor.C.stop(true);
+			
+			Button.waitForAnyPress();
+			System.exit(0);
 		}
 	}
 }

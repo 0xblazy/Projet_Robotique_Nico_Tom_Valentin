@@ -10,11 +10,10 @@ import twister.models.Robot;
  * 
  * @author nicolas-carbonnier
  */
-public class Turn implements Behavior {
+public class Turn extends ThreadBehavior {
 	
 	private Robot robot;
 	private MovePilot pilot;
-	private Thread thread;
 	private boolean suppressed = false;
 	
 	/**
@@ -26,10 +25,6 @@ public class Turn implements Behavior {
 	public Turn(Robot _robot, MovePilot _pilot) {
 		this.robot = _robot;
 		this.pilot = _pilot;
-	}
-	
-	public void setThread(Thread _thread) {
-		this.thread = _thread;
 	}
 
 	@Override
@@ -98,10 +93,10 @@ public class Turn implements Behavior {
 		if (this.robot.turnRight()) this.robot.turnRight(false);
 		
 		if (this.thread != null) {
-			//System.out.println("Thread present");
+			System.out.println("Thread present");
 			synchronized (this.thread) {
-				//System.out.println("Thread notifie");
-				thread.notify();
+				System.out.println("Thread notifie");
+				this.thread.notify();
 			}
 		}
 	}

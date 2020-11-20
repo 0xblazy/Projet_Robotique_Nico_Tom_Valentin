@@ -12,14 +12,13 @@ import twister.models.TwisterColor;
  * 
  * @author nicolas-carbonnier
  */
-public class ColorDetector implements Behavior, TwisterColor {
+public class ColorDetector extends ThreadBehavior implements TwisterColor {
 
 	private Robot robot;
 	private EV3ColorSensor colorSensor;
 	private SampleProvider colorSample;
 	private float[] sample;
 	private int offset;
-	private Thread thread;
 	private boolean suppressed = false;
 	
 	/**
@@ -67,10 +66,6 @@ public class ColorDetector implements Behavior, TwisterColor {
 		return color;
 	}
 	
-	public void setThread(Thread _thread) {
-		this.thread = _thread;
-	}
-	
 	@Override
 	public boolean takeControl() {
 		return this.robot.takeColor();
@@ -104,10 +99,10 @@ public class ColorDetector implements Behavior, TwisterColor {
 		this.robot.takeColor(false);
 		
 		if (this.thread != null) {
-			//System.out.println("Thread present");
+			System.out.println("Thread present");
 			synchronized (this.thread) {
-				//System.out.println("Thread notifie");
-				thread.notify();
+				System.out.println("Thread notifie");
+				this.thread.notify();
 			}
 		}
 	}

@@ -1,25 +1,20 @@
 package twister.behaviors;
 
-import javax.sound.midi.Soundbank;
-
 import lejos.hardware.Battery;
 import lejos.hardware.Button;
 import lejos.hardware.Sound;
 import lejos.hardware.motor.Motor;
 import lejos.hardware.sensor.EV3ColorSensor;
 import lejos.robotics.subsumption.Arbitrator;
-import lejos.robotics.subsumption.Behavior;
-import twister.cartography.Cartography;
 
 /**
  * Behavior charge de quitter le programme lorsque l'on clique sur le bouton ESCAPE ou que la batterie est sous le seuil.
  * 
  * @author nicolas-carbonnier
  */
-public class Quit implements Behavior {
+public class Quit extends ThreadBehavior {
 	
 	private EV3ColorSensor colorSensor;
-	private Thread thread;
 	private Arbitrator arby;
 	private float lowLevel;
 	private boolean suppressed = false;
@@ -42,10 +37,6 @@ public class Quit implements Behavior {
 	 */
 	public void setArby(Arbitrator _arby) {
 		this.arby = _arby;
-	}
-	
-	public void setThread(Thread _thread) {
-		this.thread = _thread;
 	}
 
 	/**
