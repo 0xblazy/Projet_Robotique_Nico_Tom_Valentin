@@ -6,6 +6,8 @@ import lejos.hardware.Button;
 import lejos.hardware.lcd.LCD;
 import lejos.remote.nxt.BTConnector;
 import lejos.remote.nxt.NXTConnection;
+import twister.models.ReglesJeu;
+
 /**
  * Classe recepteur du projet
  * @author val
@@ -13,9 +15,13 @@ import lejos.remote.nxt.NXTConnection;
  */
 
 
-public class Recepteur {
+public class Recepteur implements ReglesJeu {
 
-	public static void main(String[] args) {
+	/**
+	 * @author val
+	 * Fonction de recepetion
+	 */
+	public static void receptionJeu() {
 		// TODO Auto-generated method stub
 		String connected = "Connecté";
 		String waiting = "En attente";
@@ -53,5 +59,8 @@ public class Recepteur {
 		} catch (Exception e) {
 		}
 	}
-
+		
+		public static void main(String[] args) {
+			receptionJeu();
+		}
 }
