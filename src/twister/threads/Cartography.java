@@ -2,7 +2,6 @@ package twister.threads;
 
 
 import lejos.hardware.Button;
-import lejos.robotics.subsumption.Arbitrator;
 import twister.models.Parameters;
 import twister.models.Robot;
 
@@ -14,18 +13,37 @@ import twister.models.Robot;
  */
 public class Cartography extends Thread {
 	
+	/**
+	 * Robot utilise pour la cartographie.
+	 */
 	private Robot robot;
+	/**
+	 * Menu qui a appele Cartography.
+	 */
 	private Menu menu;
 	
+	/**
+	 * Hauteur du plateau.
+	 * height = {@value}
+	 */
 	private int height = Parameters.HEIGHT;
+	/**
+	 * Largeur du plateau.
+	 * width = {@value}
+	 */
 	private int width = Parameters.WIDTH;
 	
+	/**
+	 * Nombre de repetition de schema de cartographie.
+	 * nbrOcc = {@value}
+	 */
 	private int nbrOcc = Parameters.WIDTH;
 	
 	/**
 	 * Contructeur.
 	 * 
 	 * @param _robot Robot utilise pour la cartographie.
+	 * @param _menu Menu qui a appele Cartography.
 	 */
 	public Cartography(Robot _robot, Menu _menu) {
 		this.robot = _robot;
@@ -180,8 +198,10 @@ public class Cartography extends Thread {
 			}
 			break;
 		}
+		
 		this.robot.getBoard().setCartographed(true);
 		System.out.println(this.robot.getBoard());
+		
 		//System.out.println("foo");
 		if (this.menu != null) {
 			//System.out.println("Thread present");

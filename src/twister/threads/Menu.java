@@ -45,10 +45,50 @@ public class Menu extends Thread {
 	@Override
 	public void run() {
 		this.run = true;
-		System.out.println("Menu lance");
+		//System.out.println("Menu lance");
 		
 		while(this.run) {
-			// Tant que le plateau n'est pas cartographie
+			// Tant que les couleurs du Robot ne sont pas calibrees
+			while (!this.robot.isColorCalibrated()) {
+				System.out.println("Le robot n'est pas encore calibre");
+				ColorCalibration colorCalibration = new ColorCalibration(this.robot, this, 5);
+				try {
+					for (ThreadBehavior behavior : this.behaviors) {
+						behavior.setThread(colorCalibration);
+					}
+					colorCalibration.start();
+					
+					// Attend la fin de la calibration
+					synchronized (this) {
+						try {
+							this.wait();
+						} catch (InterruptedException e) {
+							Thread.currentThread().interrupt();
+							break;
+						}
+					}
+					//System.out.println("bar");
+					if (this.robot.isColorCalibrated()) {
+						colorCalibration.interrupt();
+					}
+					
+				} catch (Exception e) {
+					e.printStackTrace();
+					Sound.buzz();
+					
+					this.colorSensor.close();
+					colorCalibration.interrupt();
+					
+					if (this.arby != null) {
+						this.arby.stop();
+					}
+					
+					Button.waitForAnyPress();
+					System.exit(0);
+				}
+			}
+			
+			// Tant que le Board n'est pas cartographie
 			while (!this.board.isCartographed()) {
 				
 				// Choix de la cartographie
@@ -59,7 +99,7 @@ public class Menu extends Thread {
 							behavior.setThread(cartography);
 						}
 						cartography.start();
-						System.out.println("Test");
+						//System.out.println("Test");
 						
 						// Attend la fin de la cartographie
 						synchronized (this) {
@@ -70,8 +110,8 @@ public class Menu extends Thread {
 								break;
 							}
 						}
-						System.out.println("bar");
-						System.out.println(board.isCartographed());
+						//System.out.println("bar");
+						//System.out.println(board.isCartographed());
 						if (this.board.isCartographed()) {
 							cartography.interrupt();
 							

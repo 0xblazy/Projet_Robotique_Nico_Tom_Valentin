@@ -1,7 +1,6 @@
 package twister.behaviors;
 
 import lejos.robotics.navigation.MovePilot;
-import lejos.robotics.subsumption.Behavior;
 import twister.models.Parameters;
 import twister.models.Robot;
 
@@ -39,7 +38,7 @@ public class Move extends ThreadBehavior {
 		pilot.setLinearSpeed(Parameters.MOVE_LINEAR_SPEED);
 		pilot.setAngularSpeed(Parameters.MOVE_ANGULAR_SPEED);
 		
-		// En avant si moveForward, en arriere sinon
+		// Si le Robot doit avancer, sinon si il doit reculer
 		if (this.robot.moveForward()) {
 			//System.out.println("Avance");
 			pilot.travel(Parameters.SIZE);
@@ -58,7 +57,7 @@ public class Move extends ThreadBehavior {
 					this.robot.setX(this.robot.getX() - 1);
 					break;
 			}
-		} else {
+		} else if (this.robot.moveBackward()){
 			//System.out.println("Recule");
 			pilot.travel(-Parameters.SIZE);
 			// Définition des nouvelles coordonnées

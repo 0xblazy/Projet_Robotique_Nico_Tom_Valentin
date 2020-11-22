@@ -1,7 +1,6 @@
 package twister.behaviors;
 
 import lejos.robotics.navigation.MovePilot;
-import lejos.robotics.subsumption.Behavior;
 import twister.models.Parameters;
 import twister.models.Robot;
 
@@ -40,7 +39,7 @@ public class Turn extends ThreadBehavior {
 		pilot.setAngularSpeed(Parameters.TURN_ANGULAR_SPEED);
 		while(pilot.isMoving())Thread.yield();
 		
-		// A gauche si turnLeft, a droite sinon
+		// Si le Robot doit tourner a gauche, sinon si il doit tourner a Droite
 		if (this.robot.turnLeft()) {
 			//System.out.println("Gauche");
 			pilot.rotate(-80);
@@ -63,7 +62,7 @@ public class Turn extends ThreadBehavior {
 					this.robot.setY(this.robot.getY() - 1);
 					break;
 			}
-		} else {
+		} else if (this.robot.turnRight()) {
 			//System.out.println("Droite");
 			pilot.rotate(80);
 			// Définition de la nouvelle direction
