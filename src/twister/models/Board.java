@@ -10,7 +10,7 @@ import java.util.Arrays;
  */
 public class Board {
 	
-	private final int[][] board = new int[Parameters.HEIGHT][Parameters.WIDTH];
+	final private int[][] board = new int[Parameters.HEIGHT][Parameters.WIDTH];
 	private boolean cartographed = false;
 	
 	/**
@@ -24,6 +24,7 @@ public class Board {
 		this.board[_y][_x] = _color;
 	}
 	
+
 	/**
 	 * Getter pour la couleur.
 	 * 
@@ -47,13 +48,13 @@ public class Board {
 	}
 	
 	public int [][] casesDeLaCouleur(int couleur){
-		int[][] liste = new int[17][2];
+		int[][] liste = new int[50][2];
 		int compteur = 0;
-		for (int i = 0; i < 5; i++) {
-			for (int j = 0; j < 7; j++) {
+		for (int j = 0; j < 7; j++) {
+			for (int i = 0; i < 5; i++) {
 				if (this.board[j][i] == couleur) {
-					liste[compteur][0] = i;
-					liste[compteur][1] = j;
+					liste[compteur][0] = j;
+					liste[compteur][1] = i;
 					compteur++;
 				}
 			}
@@ -75,7 +76,6 @@ public class Board {
 				val = val1;
 				good[0]= liste[i][0];
 				good[1]= liste[i][1];
-				System.out.println(val1);
 			}
 		}
 		return good;
