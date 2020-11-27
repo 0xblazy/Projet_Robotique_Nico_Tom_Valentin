@@ -88,7 +88,7 @@ public class ColorDetector extends ThreadBehavior {
 		// Si le Robot doit prendre la couleur, sinon si le Robot doit calibrer une couleur
 		if (this.robot.takeColor()) {
 			//System.out.println(Parameters.DIRECTIONS[this.robot.getDirection()]);
-			//System.out.println("X: " + this.robot.getX() + " Y: " + this.robot.getY());
+			System.out.println("X: " + this.robot.getX() + " Y: " + this.robot.getY());
 			
 			int color = this.getColor(rgb);
 			System.out.println("Color: " + color + " (" + TwisterColor.COLORS[color] + ")");

@@ -79,9 +79,9 @@ public class ColorCalibration extends Thread {
 			}
 			
 			// Calcul de la moyenne des codes RGB
-			r = r / this.prises;
-			g = g / this.prises;
-			b = b / this.prises;
+			r = (int) (r / this.prises);
+			g = (int) (g / this.prises);
+			b = (int) (b / this.prises);
 			
 			System.out.println(TwisterColor.COLORS[i] + ": " + r + ", " + g + ", " + b + "\n");
 			this.robot.setRgb(i, new int[]{r, g, b});
