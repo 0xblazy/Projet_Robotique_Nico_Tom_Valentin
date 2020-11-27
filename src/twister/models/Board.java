@@ -62,21 +62,21 @@ public class Board {
 	}
 	
 	//TODO : A TESTER 
-	//Méthode qui prend toutes les cases de la couleur demandée, et ressort la plus proche du robot 
-	public int [][] caseLaPlusProche(Robot r, int c){
+	//Méthode qui prend toutes les cases de la couleur demandée, et ressort les coordonnées de la plus proche du robot 
+	public int [] caseLaPlusProche(Robot r, int c){
 		int xRobot = r.getX();
 		int yRobot = r.getY();
 		int val = 42;
-		int [][] good  = new int[1][2];
+		int [] good  = new int[2];
 		int[][] liste = casesDeLaCouleur(c);
 		for (int i = 0; i < liste.length ; i++) {
 			int val1 = Math.abs(liste[i][1] - yRobot) + Math.abs(liste[i][0] - xRobot);
 			if (val1 < val) {
 				val = val1;
-				good[1][0]= liste[i][0];
-				good[1][1]= liste[i][1];
+				good[0]= liste[i][0];
+				good[1]= liste[i][1];
 				System.out.println(val1);
-			}	
+			}
 		}
 		return good;
 	}

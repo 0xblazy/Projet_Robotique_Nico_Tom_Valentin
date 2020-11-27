@@ -12,6 +12,7 @@ public static void main(String[] args) {
 			{4,5,4,3,4},
 			{1,5,5,3,4},
 			{4,4,4,4,4}
+			
 	};
 }
 }

@@ -37,7 +37,7 @@ public class BumperCar {
 	public static void main(String[] args) {
 		//System.out.println("Appuyez pour demarrer");
 		//System.out.println("Batterie : " + Battery.getBatteryCurrent());
-		//Button.waitForAnyPress();
+		//Button.waitFor AnyPress();
 		
 		// Initialisation du plateau
 		Board board = new Board();
