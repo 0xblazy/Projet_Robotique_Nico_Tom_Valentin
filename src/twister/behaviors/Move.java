@@ -38,49 +38,53 @@ public class Move extends ThreadBehavior {
 		pilot.setLinearSpeed(Parameters.MOVE_LINEAR_SPEED);
 		pilot.setAngularSpeed(Parameters.MOVE_ANGULAR_SPEED);
 		
+		// Recuperation du nombres de cases a se deplacer
+		int nbCases = this.robot.getNbCases();
+		
 		// Si le Robot doit avancer, sinon si il doit reculer
 		if (this.robot.moveForward()) {
 			//System.out.println("Avance");
-			pilot.travel(Parameters.SIZE);
+			pilot.travel(Parameters.SIZE * nbCases);
 			// Définition des nouvelles coordonnées
 			switch (this.robot.getDirection()) {
 				case Parameters.UP:
-					this.robot.setY(this.robot.getY() - 1);
+					this.robot.setY(this.robot.getY() - (1 * nbCases));
 					break;
 				case Parameters.DOWN:
-					this.robot.setY(this.robot.getY() + 1);
+					this.robot.setY(this.robot.getY() + (1 * nbCases));
 					break;
 				case Parameters.RIGHT:
-					this.robot.setX(this.robot.getX() + 1);
+					this.robot.setX(this.robot.getX() + (1 * nbCases));
 					break;
 				case Parameters.LEFT:
-					this.robot.setX(this.robot.getX() - 1);
+					this.robot.setX(this.robot.getX() - (1 * nbCases));
 					break;
 			}
 		} else if (this.robot.moveBackward()){
 			//System.out.println("Recule");
-			pilot.travel(-Parameters.SIZE);
+			pilot.travel(-Parameters.SIZE * nbCases);
 			// Définition des nouvelles coordonnées
 			switch (this.robot.getDirection()) {
 				case Parameters.UP:
-					this.robot.setY(this.robot.getY() + 1);
+					this.robot.setY(this.robot.getY() + (1 * nbCases));
 					break;
 				case Parameters.DOWN:
-					this.robot.setY(this.robot.getY() - 1);
+					this.robot.setY(this.robot.getY() - (1 * nbCases));
 					break;
 				case Parameters.RIGHT:
-					this.robot.setX(this.robot.getX() - 1);
+					this.robot.setX(this.robot.getX() - (1 * nbCases));
 					break;
 				case Parameters.LEFT:
-					this.robot.setX(this.robot.getX() + 1);
+					this.robot.setX(this.robot.getX() + (1 * nbCases));
 					break;
 			}
 		}
 		while(pilot.isMoving()) Thread.yield();
 		
-		// Repasse les booleens de deplacement a faux
+		// Repasse les booleens de deplacement a faux et remet le nombre de cases a 0
 		if (this.robot.moveForward()) this.robot.moveForward(false);
 		if (this.robot.moveBackward()) this.robot.moveBackward(false);
+		this.robot.setNbCases(1);
 		
 		if (this.thread != null) {
 			//System.out.println("Thread present");

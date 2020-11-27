@@ -29,6 +29,12 @@ public class Robot {
 	private boolean calibrateColor = false;
 	
 	/**
+	 * Nombre de cases a se déplacer.
+	 * nbCases = {@value}
+	 */
+	private int nbCases = 1;
+	
+	/**
 	 * Booleen pour definir si les couleurs utilisees par le Robot ont ete calibrees.
 	 */
 	private boolean colorCalibrated = false;
@@ -141,6 +147,15 @@ public class Robot {
 	 */
 	public void calibrateColor(boolean _calibrateColor) {
 		this.calibrateColor = _calibrateColor;
+	}
+	
+	/**
+	 * Setter pour nbCases.
+	 * 
+	 * @param _nbCases Nombre de cases a se deplacer.
+	 */
+	public void setNbCases(int _nbCases) {
+		this.nbCases = _nbCases;
 	}
 	
 	/**
@@ -258,6 +273,15 @@ public class Robot {
 	 */
 	public boolean calibrateColor() {
 		return this.calibrateColor;
+	}
+	
+	/**
+	 * Getter pour nbCases.
+	 * 
+	 * @return Nombre de cases a se deplacer.
+	 */
+	public int getNbCases() {
+		return this.nbCases;
 	}
 	
 	/**

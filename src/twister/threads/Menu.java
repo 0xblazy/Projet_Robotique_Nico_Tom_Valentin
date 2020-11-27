@@ -48,6 +48,37 @@ public class Menu extends Thread {
 		//System.out.println("Menu lance");
 		
 		while(this.run) {
+			
+			/*// Test deplacement plusieurs cases
+			for (ThreadBehavior behavior : this.behaviors) {
+				behavior.setThread(this);
+			}
+			
+			for (int i = 0 ; i < 4 ; i++) {
+				System.out.println("X: " + this.robot.getX() + " Y: " + this.robot.getY());
+				this.robot.setNbCases(3);
+				this.robot.moveForward(true);
+				synchronized (this) {
+					try {
+						this.wait();
+					} catch (InterruptedException e) {
+						Thread.currentThread().interrupt();
+						break;
+					}
+				}
+				this.robot.turnRight(true);
+				synchronized (this) {
+					try {
+						this.wait();
+					} catch (InterruptedException e) {
+						Thread.currentThread().interrupt();
+						break;
+					}
+				}
+			}
+			System.out.println("X: " + this.robot.getX() + " Y: " + this.robot.getY());*/
+			
+			
 			// Tant que les couleurs du Robot ne sont pas calibrees
 			while (!this.robot.isColorCalibrated()) {
 				System.out.println("Le robot n'est pas encore calibre");
