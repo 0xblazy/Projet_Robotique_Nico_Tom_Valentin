@@ -7,6 +7,7 @@ import lejos.hardware.sensor.EV3ColorSensor;
 import lejos.robotics.subsumption.Arbitrator;
 import twister.behaviors.ThreadBehavior;
 import twister.models.Board;
+import twister.models.Parameters;
 import twister.models.Robot;
 
 /**
@@ -187,11 +188,9 @@ public class Menu extends Thread {
 				case Button.ID_RIGHT:
 					this.robot.setX(4);
 					this.robot.setY(0);
-					Game game = new Game(this.robot, this, this.board);
+					this.robot.setDirection(Parameters.DOWN);
+					Game game = new Game(this.robot, this, this.behaviors);
 					try {
-						for (ThreadBehavior behavior : this.behaviors) {
-							behavior.setThread(game);
-						}
 						game.start();
 						
 						synchronized (this) {

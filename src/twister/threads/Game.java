@@ -1,10 +1,9 @@
 package twister.threads;
 
 import lejos.hardware.Button;
-import twister.models.Board;
+import twister.behaviors.ThreadBehavior;
 import twister.models.ReglesJeu;
 import twister.models.Robot;
-import twister.models.TwisterColor;
 
 /**
  * Thread utilise par Game.
@@ -22,21 +21,21 @@ public class Game extends Thread {
 	private Menu menu;
 	
 	/**
-	 * Plateau de la partie.
+	 * Behaviors.
 	 */
-	private Board board;
+	private ThreadBehavior[] behaviors;
 	
 	/**
 	 * Constructeur.
 	 * 
 	 * @param _robot Robot utilise pour la partie.
 	 * @param _menu Menu qui a appele Game.
-	 * @param _board Plateau de la partie.
+	 * @param _nav Navigation utilisee par le Robot.
 	 */
-	public Game(Robot _robot, Menu _menu, Board _board) {
+	public Game(Robot _robot, Menu _menu, ThreadBehavior[] _behaviors) {
 		this.robot = _robot;
 		this.menu = _menu;
-		this.board = _board;
+		this.behaviors = _behaviors;
 	}
 	
 	@Override
@@ -49,11 +48,21 @@ public class Game extends Thread {
 		while (running) {
 			System.out.println("X: " + this.robot.getX() + " Y: " + this.robot.getY());
 			
-			// Choisi une couleur aleatoire et cherche la case la plus proche
+			// Choisi une couleur aleatoire et lance la navigation
 			int new_color = ReglesJeu.getRandom();
-			int[] caseLaPlusProche = this.robot.getBoard().caseLaPlusProche(this.robot, new_color);
-			System.out.println(TwisterColor.COLORS[new_color] + " le plus proche: " + caseLaPlusProche[0] + ", " + caseLaPlusProche[1]);
-			
+			Navigation nav = new Navigation(this.robot, this.robot.getBoard(), this, new_color);
+			for (ThreadBehavior behavior : this.behaviors) {
+				behavior.setThread(nav);
+			}
+			nav.start();
+			synchronized (this) {
+				try {
+					this.wait();
+				} catch (InterruptedException e) {
+					Thread.currentThread().interrupt();
+					break;
+				}
+			}
 			
 			// Menu pour continuer la partie ou non
 			System.out.println("Voulez-vous continuer ?\n"
