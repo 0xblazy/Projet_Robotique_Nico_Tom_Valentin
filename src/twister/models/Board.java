@@ -120,7 +120,7 @@ public class Board {
 	 * @param c
 	 */
 	
-	public void navgigation(Robot r, int c) {
+	public void navigation(Robot r, int c) {
 		int[] destPos = caseLaPlusProche(r, c);
 		int xRobot = r.getX();
 		int yRobot = r.getY();

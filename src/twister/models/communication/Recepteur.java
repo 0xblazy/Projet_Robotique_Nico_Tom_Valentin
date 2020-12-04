@@ -65,8 +65,4 @@ public class Recepteur implements ReglesJeu {
 		} catch (Exception e) {
 		}
 	}
-		
-		public static void main(String[] args) {
-			receptionJeu();
-		}
 }
