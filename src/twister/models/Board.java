@@ -54,7 +54,23 @@ public class Board {
 	
 	
 	public int [][] casesDeLaCouleur(int couleur){
-		int[][] liste = new int[50][2];
+		int[][] liste = null;
+		if (couleur == 1) {
+			liste = new int[2][2];
+		}
+		if (couleur == 2) {
+			liste = new int[1][2];
+		}
+		if (couleur == 3) {
+			liste = new int[4][2];
+		}
+		if (couleur == 4) {
+			liste = new int[18][2];
+		}
+		if (couleur == 5) {
+			liste = new int[10 ][2];
+		}
+		
 		int compteur = 0;
 		for (int j = 0; j < 7; j++) {
 			for (int i = 0; i < 5; i++) {

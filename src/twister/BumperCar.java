@@ -95,5 +95,8 @@ public class BumperCar {
 			Button.waitForAnyPress();
 			System.exit(0);
 		}
+		
+		//Lancement du Jeu
+		
 	}
 }

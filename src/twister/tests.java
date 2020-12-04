@@ -19,11 +19,15 @@ public static void main(String[] args) {
 			{4,4,4,4,4}
 	};
 	
-	//board.setBoard(cartoTest);	
-	//Robot r = new Robot(0,4,1,board);
-	//int[][] gne = board.casesDeLaCouleur(4);
-	//int [] ouch = board.caseLaPlusProche(r, 4); 
-	//System.out.println(ouch[0] + "," + ouch[1]);		
+	board.setBoard(cartoTest);	
+	Robot r = new Robot(0,4,1,board);
+	int[][] gne = board.casesDeLaCouleur(1);
+	for (int j = 0; j < 7; j++) {
+			System.out.println(gne[j][0]);
+			System.out.println(gne[j][1]);
+		}
+	int [] ouch = board.caseLaPlusProche(r, 1); 
+	System.out.println(ouch[0] + "," + ouch[1]);		
 			
 
 }
