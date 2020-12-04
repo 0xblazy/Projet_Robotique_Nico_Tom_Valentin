@@ -40,7 +40,7 @@ public class Emetteur implements ReglesJeu{
 			LCD.clear();
 			LCD.drawString(connected, 0, 0);
 			LCD.refresh();
-			int colorSend = ReglesJeu.getRandom(COLORS_CODE);
+			int colorSend = ReglesJeu.getRandom();
 			//InputStream is = btc.openInputStream();
 			OutputStream os = btc.openOutputStream();
 			//DataInputStream dis = new DataInputStream(is);
@@ -60,7 +60,7 @@ public class Emetteur implements ReglesJeu{
 	 * Fonction permettant de se connecter
 	 * @author val
 	 */
-	public static void emettreJeu() {
+	public static int emettreJeu() {
 
 		EV3 ev = LocalEV3.get();
 		System.out.println("--"+ev.getName()+"--");
@@ -77,7 +77,7 @@ public class Emetteur implements ReglesJeu{
 			LCD.clear();
 			LCD.drawString(connected, 0, 0);
 			LCD.refresh();
-			int colorSend = ReglesJeu.getRandom(COLORS_CODE);
+			int colorSend = ReglesJeu.getRandom();
 			//InputStream is = btc.openInputStream();
 			OutputStream os = btc.openOutputStream();
 			//DataInputStream dis = new DataInputStream(is);
@@ -90,12 +90,16 @@ public class Emetteur implements ReglesJeu{
 			dos.close();
 			btc.close();
 			LCD.clear();
+			return colorSend;
 			
 		} catch (Exception e) {
+			return 0;
 		}
+		
 	}
 	
 	public static void main(String[] args) {
-		emettreJeu();
+		int colorSens = emettreJeu();
+
 	}
 }
