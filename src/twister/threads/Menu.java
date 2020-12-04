@@ -8,7 +8,6 @@ import lejos.robotics.subsumption.Arbitrator;
 import twister.behaviors.ThreadBehavior;
 import twister.models.Board;
 import twister.models.Robot;
-
 /**
  * Thread utilise pour le menu.
  * Lance les autres Threads.
@@ -48,6 +47,37 @@ public class Menu extends Thread {
 		//System.out.println("Menu lance");
 		
 		while(this.run) {
+			
+			/*// Test deplacement plusieurs cases
+			for (ThreadBehavior behavior : this.behaviors) {
+				behavior.setThread(this);
+			}
+			
+			for (int i = 0 ; i < 4 ; i++) {
+				System.out.println("X: " + this.robot.getX() + " Y: " + this.robot.getY());
+				this.robot.setNbCases(3);
+				this.robot.moveForward(true);
+				synchronized (this) {
+					try {
+						this.wait();
+					} catch (InterruptedException e) {
+						Thread.currentThread().interrupt();
+						break;
+					}
+				}
+				this.robot.turnRight(true);
+				synchronized (this) {
+					try {
+						this.wait();
+					} catch (InterruptedException e) {
+						Thread.currentThread().interrupt();
+						break;
+					}
+				}
+			}
+			System.out.println("X: " + this.robot.getX() + " Y: " + this.robot.getY());*/
+			
+			
 			// Tant que les couleurs du Robot ne sont pas calibrees
 			while (!this.robot.isColorCalibrated()) {
 				System.out.println("Le robot n'est pas encore calibre");
@@ -156,7 +186,7 @@ public class Menu extends Thread {
 	private Cartography choixCarto() {
 		System.out.println("Choix de Cartographie :\n"
 				+ "  HAUT : Type 1\n"
-				+ "  BAS : Type 2");
+				+ "  BAS : Type 2 ");
 		
 		int check = Button.waitForAnyPress();
 		switch (check) {
@@ -165,8 +195,7 @@ public class Menu extends Thread {
 				return new Cartography(this.robot, this);	
 			case Button.ID_DOWN:
 				System.out.println("Type 2 choisi");
-				
-				return null;				
+				return null;	
 			default : 
 				System.out.println("error");
 				return null;
