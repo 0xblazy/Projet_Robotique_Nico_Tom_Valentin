@@ -15,6 +15,7 @@ import twister.models.Robot;
  * 
  * @author nicolas-carbonnier
  * @author TomySchef54
+ * @author Aetra
  *
  */
 public class Menu extends Thread {
@@ -23,7 +24,6 @@ public class Menu extends Thread {
 	private Board board;
 	private Robot robot;
 	private EV3ColorSensor colorSensor;
-	private boolean run;
 	
 	/**
 	 * Constructeur.
@@ -44,10 +44,10 @@ public class Menu extends Thread {
 	
 	@Override
 	public void run() {
-		this.run = true;
+		boolean run = true;
 		//System.out.println("Menu lance");
 		
-		while(this.run) {
+		while(run) {
 			
 			/*// Test deplacement plusieurs cases
 			for (ThreadBehavior behavior : this.behaviors) {
@@ -172,7 +172,64 @@ public class Menu extends Thread {
 				}
 			}
 			
-			this.run = false;
+			// Menu du robot après l'avoir calibre et cartographie
+			System.out.println("Le robot est prêt pour jouer, que voulez vous faire ?\n"
+					+ "RIGHT: Lancer la partie\n"
+					+ "DOWN: Afficher le plateau\n"
+					+ "LEFT: Quitter le programme");
+			int choix = Button.waitForAnyPress();
+			while (choix != Button.ID_RIGHT && choix != Button.ID_DOWN && choix != Button.ID_LEFT) {
+				System.out.println("Choix invalide, veuillez le refaire");
+				choix = Button.waitForAnyPress();
+			}
+			switch (choix) {
+				// Lancement de la partie
+				case Button.ID_RIGHT:
+					this.robot.setX(4);
+					this.robot.setY(0);
+					Game game = new Game(this.robot, this, this.board);
+					try {
+						for (ThreadBehavior behavior : this.behaviors) {
+							behavior.setThread(game);
+						}
+						game.start();
+						
+						synchronized (this) {
+							try {
+								this.wait();
+							} catch (InterruptedException e) {
+								Thread.currentThread().interrupt();
+								break;
+							}
+						}
+						
+					} catch (Exception e) {
+						e.printStackTrace();
+						Sound.buzz();
+						
+						this.colorSensor.close();
+						game.interrupt();
+						
+						if (this.arby != null) {
+							this.arby.stop();
+						}
+						
+						Motor.B.stop(true);
+						Motor.C.stop(true);
+						
+						Button.waitForAnyPress();
+						System.exit(0);
+					}
+					break;
+				// Affichage du plateau
+				case Button.ID_DOWN:
+					System.out.println(this.board);
+					break;
+				// Fin du programme
+				case Button.ID_LEFT:
+					run = false;
+					break;
+			}
 		}
 		
 		System.out.println("Fin du programme, appuyez sur ESCAPE pour sortir");
@@ -186,9 +243,9 @@ public class Menu extends Thread {
 	 */
 	private Cartography choixCarto() {
 		System.out.println("Choix de Cartographie :\n"
-				+ "  HAUT : Type 1\n"
-				+ "  BAS : Type 2"
-				+ "GAUCHE: EN ATTENTE DE RECEPTION");
+				+ "  UP : Type 1\n"
+				+ "  DOWN : Type 2"
+				+ "  LEFT: Reception depuis l'autre Robot");
 		
 		int check = Button.waitForAnyPress();
 		switch (check) {
