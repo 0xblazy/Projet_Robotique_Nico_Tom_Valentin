@@ -10,7 +10,7 @@ import java.util.Arrays;
  */
 public class Board {
 	
-	final private int[][] board = new int[Parameters.HEIGHT][Parameters.WIDTH];
+	private int[][] board = new int[Parameters.HEIGHT][Parameters.WIDTH];
 	private boolean cartographed = false;
 	
 	/**
@@ -20,6 +20,11 @@ public class Board {
 	 * @param _y Coordonnee y.
 	 * @param _color Couleur.
 	 */
+	
+	
+	public void setBoard(int[][] board) {
+		this.board = board;
+	}
 	public void setColor(int _x, int _y, int _color) {
 		this.board[_y][_x] = _color;
 	}
@@ -47,6 +52,7 @@ public class Board {
 		return s;
 	}
 	
+	
 	public int [][] casesDeLaCouleur(int couleur){
 		int[][] liste = new int[50][2];
 		int compteur = 0;
@@ -62,7 +68,7 @@ public class Board {
 		return liste;
 	}
 	
-	//TODO : A TESTER 
+
 	//Méthode qui prend toutes les cases de la couleur demandée, et ressort les coordonnées de la plus proche du robot 
 	public int [] caseLaPlusProche(Robot r, int c){
 		int xRobot = r.getX();

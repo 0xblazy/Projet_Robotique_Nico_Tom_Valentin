@@ -179,7 +179,7 @@ public class Menu extends Thread {
 		Button.ESCAPE.waitForPress();
 	}
 	
-	/**
+	/*
 	 * Menu de selection du type de Cartographie.
 	 * 
 	 * @return Cartographie choisie.
