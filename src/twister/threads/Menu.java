@@ -9,6 +9,7 @@ import twister.behaviors.ThreadBehavior;
 import twister.models.Board;
 import twister.models.Parameters;
 import twister.models.Robot;
+import twister.models.communication.Recepteur;
 
 /**
  * Thread utilise pour le menu.
@@ -16,7 +17,6 @@ import twister.models.Robot;
  * 
  * @author nicolas-carbonnier
  * @author TomySchef54
- * @author Aetra
  *
  */
 public class Menu extends Thread {
@@ -25,6 +25,7 @@ public class Menu extends Thread {
 	private Board board;
 	private Robot robot;
 	private EV3ColorSensor colorSensor;
+	private boolean run;
 	
 	/**
 	 * Constructeur.
@@ -45,41 +46,10 @@ public class Menu extends Thread {
 	
 	@Override
 	public void run() {
-		boolean run = true;
+		this.run = true;
 		//System.out.println("Menu lance");
 		
-		while(run) {
-			
-			/*// Test deplacement plusieurs cases
-			for (ThreadBehavior behavior : this.behaviors) {
-				behavior.setThread(this);
-			}
-			
-			for (int i = 0 ; i < 4 ; i++) {
-				System.out.println("X: " + this.robot.getX() + " Y: " + this.robot.getY());
-				this.robot.setNbCases(3);
-				this.robot.moveForward(true);
-				synchronized (this) {
-					try {
-						this.wait();
-					} catch (InterruptedException e) {
-						Thread.currentThread().interrupt();
-						break;
-					}
-				}
-				this.robot.turnRight(true);
-				synchronized (this) {
-					try {
-						this.wait();
-					} catch (InterruptedException e) {
-						Thread.currentThread().interrupt();
-						break;
-					}
-				}
-			}
-			System.out.println("X: " + this.robot.getX() + " Y: " + this.robot.getY());*/
-			
-			
+		while(this.run) {
 			// Tant que les couleurs du Robot ne sont pas calibrees
 			while (!this.robot.isColorCalibrated()) {
 				System.out.println("Le robot n'est pas encore calibre");
@@ -242,9 +212,9 @@ public class Menu extends Thread {
 	 */
 	private Cartography choixCarto() {
 		System.out.println("Choix de Cartographie :\n"
-				+ "  UP : Type 1\n"
-				+ "  DOWN : Type 2"
-				+ "  LEFT: Reception depuis l'autre Robot");
+				+ "  HAUT : Type 1\n"
+				+ "  BAS : Type 2\n"
+				+ "  GAUCHE: EN ATTENTE DE RECEPTION\n");
 		
 		int check = Button.waitForAnyPress();
 		switch (check) {
@@ -253,10 +223,10 @@ public class Menu extends Thread {
 				return new Cartography(this.robot, this);	
 			case Button.ID_DOWN:
 				System.out.println("Type 2 choisi");
-				return null;	
+				return null;				
 			case Button.ID_LEFT:
 				System.out.println("Lancement du transfert MACHINALE");
-				return null;
+				Recepteur.receptionJeu();
 			default : 
 				System.out.println("error");
 				return null;

@@ -2,6 +2,7 @@ package twister.threads;
 
 import lejos.hardware.Button;
 import twister.behaviors.ThreadBehavior;
+import twister.models.Parameters;
 import twister.models.ReglesJeu;
 import twister.models.Robot;
 
@@ -47,6 +48,7 @@ public class Game extends Thread {
 		boolean running = true;
 		while (running) {
 			System.out.println("X: " + this.robot.getX() + " Y: " + this.robot.getY());
+			System.out.println("Direction: " + Parameters.DIRECTIONS[this.robot.getDirection()]);
 			
 			// Choisi une couleur aleatoire et lance la navigation
 			int new_color = ReglesJeu.getRandom();
