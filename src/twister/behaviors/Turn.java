@@ -42,46 +42,50 @@ public class Turn extends ThreadBehavior {
 		// Si le Robot doit tourner a gauche, sinon si il doit tourner a Droite
 		if (this.robot.turnLeft()) {
 			//System.out.println("Gauche");
-			pilot.rotate(-80);
+			pilot.rotate(-90);
+			
+			// Recule pour compenser la rotation
+			pilot.setLinearSpeed(Parameters.MOVE_LINEAR_SPEED);
+			pilot.setAngularSpeed(Parameters.MOVE_ANGULAR_SPEED);
+			pilot.travel(-Parameters.SIZE);
 			// Définition de la nouvelle direction
 			switch (this.robot.getDirection()) {
 				case Parameters.UP:
 					this.robot.setDirection(Parameters.LEFT);
-					this.robot.setX(this.robot.getX() - 1);
 					break;
 				case Parameters.DOWN:
 					this.robot.setDirection(Parameters.RIGHT);
-					this.robot.setX(this.robot.getX() + 1);
 					break;
 				case Parameters.RIGHT:
 					this.robot.setDirection(Parameters.UP);
-					this.robot.setY(this.robot.getY() + 1);
 					break;
 				case Parameters.LEFT:
 					this.robot.setDirection(Parameters.DOWN);
-					this.robot.setY(this.robot.getY() - 1);
 					break;
 			}
 		} else if (this.robot.turnRight()) {
 			//System.out.println("Droite");
+			// Avance d'une case pour compenser la rotation
+			pilot.setLinearSpeed(Parameters.MOVE_LINEAR_SPEED);
+			pilot.setAngularSpeed(Parameters.MOVE_ANGULAR_SPEED);
+			pilot.travel(Parameters.SIZE);
+			
+			pilot.setLinearSpeed(Parameters.TURN_LINEAR_SPEED);
+			pilot.setAngularSpeed(Parameters.TURN_ANGULAR_SPEED);
 			pilot.rotate(80);
 			// Définition de la nouvelle direction
 			switch (this.robot.getDirection()) {
 				case Parameters.UP:
 					this.robot.setDirection(Parameters.RIGHT);
-					this.robot.setY(this.robot.getY() + 1);
 					break;
 				case Parameters.DOWN:
 					this.robot.setDirection(Parameters.LEFT);
-					this.robot.setY(this.robot.getY() - 1);
 					break;
 				case Parameters.RIGHT:
 					this.robot.setDirection(Parameters.DOWN);
-					this.robot.setX(this.robot.getX() - 1);
 					break;
 				case Parameters.LEFT:
 					this.robot.setDirection(Parameters.UP);
-					this.robot.setX(this.robot.getX() + 1);
 					break;
 			}
 		}
