@@ -63,7 +63,7 @@ public class Board {
 	}
 	
 	//TODO : A TESTER 
-	//Méthode qui prend toutes les cases de la couleur demandée, et ressort les coordonnées de la plus proche du robot 
+	//Mï¿½thode qui prend toutes les cases de la couleur demandï¿½e, et ressort les coordonnï¿½es de la plus proche du robot 
 	public int [] caseLaPlusProche(Robot r, int c){
 		int xRobot = r.getX();
 		int yRobot = r.getY();
@@ -82,7 +82,7 @@ public class Board {
 	}
 	
 	/**
-	 * Setter pour definir si le board a été cartographie ou non.
+	 * Setter pour definir si le board a ï¿½tï¿½ cartographie ou non.
 	 * 
 	 * @param _cartographed Booleen.
 	 */
@@ -92,6 +92,30 @@ public class Board {
 	
 	public boolean isCartographed() {
 		return this.cartographed;
+	}
+	
+	public void navgigation(Robot r, int c) {
+		int[] destPos = caseLaPlusProche(r, c);
+		int xRobot = r.getX();
+		int yRobot = r.getY();
+		if (xRobot > destPos[0]) {
+			//monter * xRobot - destGo
+		}
+		else if (xRobot < destPos[0]) {
+			//descendre  *  xRobot - destGo
+		}
+		if (yRobot > destPos[1]) {
+			// aller * yRobot - destGo
+		}
+		else if (yRobot < destPos[1]) {
+			//aller * xRobot - destGo
+		}
+		else {
+			
+		}
+			
+		
+		
 	}
 	
 }
