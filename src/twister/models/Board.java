@@ -84,13 +84,6 @@ public class Board {
 		return liste;
 	}
 	
-<<<<<<< HEAD
-	//TODO : A TESTER 
-	//Mï¿½thode qui prend toutes les cases de la couleur demandï¿½e, et ressort les coordonnï¿½es de la plus proche du robot 
-=======
-
-	//Méthode qui prend toutes les cases de la couleur demandée, et ressort les coordonnées de la plus proche du robot 
->>>>>>> branch 'dev' of https://github.com/nicolas-carbonnier/Projet_Robotique_Nico_Tom_Valentin.git
 	public int [] caseLaPlusProche(Robot r, int c){
 		int xRobot = r.getX();
 		int yRobot = r.getY();
