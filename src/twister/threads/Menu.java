@@ -187,7 +187,8 @@ public class Menu extends Thread {
 	private Cartography choixCarto() {
 		System.out.println("Choix de Cartographie :\n"
 				+ "  HAUT : Type 1\n"
-				+ "  BAS : Type 2");
+				+ "  BAS : Type 2"
+				+ "GAUCHE: EN ATTENTE DE RECEPTION");
 		
 		int check = Button.waitForAnyPress();
 		switch (check) {
@@ -196,8 +197,10 @@ public class Menu extends Thread {
 				return new Cartography(this.robot, this);	
 			case Button.ID_DOWN:
 				System.out.println("Type 2 choisi");
-				
-				return null;				
+				return null;	
+			case Button.ID_LEFT:
+				System.out.println("Lancement du transfert MACHINALE");
+				return 
 			default : 
 				System.out.println("error");
 				return null;

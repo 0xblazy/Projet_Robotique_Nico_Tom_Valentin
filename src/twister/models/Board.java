@@ -94,21 +94,63 @@ public class Board {
 		return this.cartographed;
 	}
 	
+	/**
+	 * Naviguer dans le board
+	 * @param r
+	 * @param c
+	 */
+	
 	public void navgigation(Robot r, int c) {
 		int[] destPos = caseLaPlusProche(r, c);
 		int xRobot = r.getX();
 		int yRobot = r.getY();
 		if (xRobot > destPos[0]) {
-			//monter * xRobot - destGo
+			int valDest = Math.abs(xRobot - destPos[0]); 
+			r.setNbCases(valDest);
+			r.moveForward(true);
+			synchronized (this) {
+				try {
+					this.wait();
+				} catch (InterruptedException e) {
+					Thread.currentThread().interrupt();
+				}
+			}
 		}
 		else if (xRobot < destPos[0]) {
-			//descendre  *  xRobot - destGo
+			int valDest = Math.abs(xRobot - destPos[0]); 
+			r.setNbCases(valDest);
+			r.moveForward(true);
+			synchronized (this) {
+				try {
+					this.wait();
+				} catch (InterruptedException e) {
+					Thread.currentThread().interrupt();
+				}
+			}
 		}
 		if (yRobot > destPos[1]) {
-			// aller * yRobot - destGo
+			int valDest = Math.abs(yRobot - destPos[1]); 
+			r.setNbCases(valDest);
+			r.moveForward(true);
+			synchronized (this) {
+				try {
+					this.wait();
+				} catch (InterruptedException e) {
+					Thread.currentThread().interrupt();
+				}
+			}		
 		}
 		else if (yRobot < destPos[1]) {
-			//aller * xRobot - destGo
+			int valDest = Math.abs(yRobot - destPos[1]); 
+			r.setNbCases(valDest);
+			r.moveForward(true);
+			synchronized (this) {
+				try {
+					this.wait();
+				} catch (InterruptedException e) {
+					Thread.currentThread().interrupt();
+				}
+			}	
 		}
 		else {
 			
