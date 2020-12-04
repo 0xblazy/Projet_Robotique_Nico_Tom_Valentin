@@ -10,7 +10,7 @@ import java.util.Arrays;
  */
 public class Board {
 	
-	final private int[][] board = new int[Parameters.HEIGHT][Parameters.WIDTH];
+	private int[][] board = new int[Parameters.HEIGHT][Parameters.WIDTH];
 	private boolean cartographed = false;
 	
 	/**
@@ -20,6 +20,11 @@ public class Board {
 	 * @param _y Coordonnee y.
 	 * @param _color Couleur.
 	 */
+	
+	
+	public void setBoard(int[][] board) {
+		this.board = board;
+	}
 	public void setColor(int _x, int _y, int _color) {
 		this.board[_y][_x] = _color;
 	}
@@ -47,8 +52,25 @@ public class Board {
 		return s;
 	}
 	
+	
 	public int [][] casesDeLaCouleur(int couleur){
-		int[][] liste = new int[50][2];
+		int[][] liste = null;
+		if (couleur == 1) {
+			liste = new int[2][2];
+		}
+		if (couleur == 2) {
+			liste = new int[1][2];
+		}
+		if (couleur == 3) {
+			liste = new int[4][2];
+		}
+		if (couleur == 4) {
+			liste = new int[18][2];
+		}
+		if (couleur == 5) {
+			liste = new int[10 ][2];
+		}
+		
 		int compteur = 0;
 		for (int j = 0; j < 7; j++) {
 			for (int i = 0; i < 5; i++) {
@@ -62,8 +84,13 @@ public class Board {
 		return liste;
 	}
 	
+<<<<<<< HEAD
 	//TODO : A TESTER 
 	//Mï¿½thode qui prend toutes les cases de la couleur demandï¿½e, et ressort les coordonnï¿½es de la plus proche du robot 
+=======
+
+	//Méthode qui prend toutes les cases de la couleur demandée, et ressort les coordonnées de la plus proche du robot 
+>>>>>>> branch 'dev' of https://github.com/nicolas-carbonnier/Projet_Robotique_Nico_Tom_Valentin.git
 	public int [] caseLaPlusProche(Robot r, int c){
 		int xRobot = r.getX();
 		int yRobot = r.getY();

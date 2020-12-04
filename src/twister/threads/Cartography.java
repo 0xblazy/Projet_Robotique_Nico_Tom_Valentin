@@ -26,12 +26,12 @@ public class Cartography extends Thread {
 	 * Hauteur du plateau.
 	 * height = {@value}
 	 */
-	private int height = Parameters.HEIGHT;
+	private int height = Parameters.HEIGHT - 1;
 	/**
 	 * Largeur du plateau.
 	 * width = {@value}
 	 */
-	private int width = Parameters.WIDTH;
+	private int width = Parameters.WIDTH - 1;
 	
 	/**
 	 * Nombre de repetition de schema de cartographie.
@@ -125,15 +125,13 @@ public class Cartography extends Thread {
 						}
 					}
 					
-					if (i < this.height - 1) {
-						this.robot.takeColor(true);
-						synchronized (this) {
-							try {
-								this.wait();
-							} catch (InterruptedException e) {
-								Thread.currentThread().interrupt();
-								break;
-							}
+					this.robot.takeColor(true);
+					synchronized (this) {
+						try {
+							this.wait();
+						} catch (InterruptedException e) {
+							Thread.currentThread().interrupt();
+							break;
 						}
 					}
 				}
@@ -161,17 +159,15 @@ public class Cartography extends Thread {
 						}
 					}
 				   
-				   if (j < this.width - 1) {
-					   this.robot.takeColor(true);
-					   synchronized (this) {
-							try {
-								this.wait();
-							} catch (InterruptedException e) {
-								Thread.currentThread().interrupt();
-								break;
-							}
+				   this.robot.takeColor(true);
+				   synchronized (this) {
+						try {
+							this.wait();
+						} catch (InterruptedException e) {
+							Thread.currentThread().interrupt();
+							break;
 						}
-				   }
+					}
 				   
 				}
 				this.width--;
