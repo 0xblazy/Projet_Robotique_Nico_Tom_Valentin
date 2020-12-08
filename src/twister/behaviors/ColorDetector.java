@@ -23,6 +23,7 @@ public class ColorDetector extends ThreadBehavior {
 	/**
 	 * Constructeur.
 	 * 
+	 * @param _robot Robot.
 	 * @param _colorSensor Capteur de couleur.
 	 * @param _sample Tableau de stockage des donnees obtenues par les capteurs.
 	 * @param _offset Decalage dans le tableau _sample.

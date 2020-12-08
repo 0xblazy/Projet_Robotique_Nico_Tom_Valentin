@@ -1,4 +1,5 @@
 twister
 twister.behaviors
-twister.cartographie
 twister.models
+twister.models.communication
+twister.threads

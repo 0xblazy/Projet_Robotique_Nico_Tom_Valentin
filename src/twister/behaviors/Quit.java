@@ -39,10 +39,6 @@ public class Quit extends ThreadBehavior {
 		this.arby = _arby;
 	}
 
-	/**
-	 * Defini la methode de prise de controle.
-	 * @return true 
-	 */
 	@Override
 	public boolean takeControl(){
 		return (Button.ESCAPE.isDown() || Battery.getBatteryCurrent() <= this.lowLevel);

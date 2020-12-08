@@ -17,7 +17,7 @@ import twister.models.communication.Recepteur;
  * 
  * @author nicolas-carbonnier
  * @author TomySchef54
- *
+ * @author Aetra
  */
 public class Menu extends Thread {
 	private ThreadBehavior[] behaviors;
