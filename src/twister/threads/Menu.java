@@ -8,6 +8,7 @@ import lejos.robotics.subsumption.Arbitrator;
 import twister.behaviors.ThreadBehavior;
 import twister.models.Board;
 import twister.models.Robot;
+import twister.models.communication.Emetteur;
 import twister.models.communication.Recepteur;
 
 /**
@@ -25,6 +26,7 @@ public class Menu extends Thread {
 	private Robot robot;
 	private EV3ColorSensor colorSensor;
 	private boolean run;
+	private static Cartography carto;
 	
 	/**
 	 * Constructeur.
@@ -159,21 +161,36 @@ public class Menu extends Thread {
 				+ "  HAUT : Type 1\n"
 				+ "  BAS : Type 2\n"
 				+ "  GAUCHE: EN ATTENTE DE RECEPTION\n");
-		
+		Cartography carto;	
 		int check = Button.waitForAnyPress();
 		switch (check) {
 			case Button.ID_UP: 
 				System.out.println("Type 1 choisi");
-				return new Cartography(this.robot, this);	
+				carto = new Cartography(this.robot, this);
+				return carto;
 			case Button.ID_DOWN:
 				System.out.println("Type 2 choisi");
-				return null;				
+				return null;
 			case Button.ID_LEFT:
 				System.out.println("Lancement du transfert MACHINALE");
 				Recepteur.receptionJeu();
+				return null;
 			default : 
 				System.out.println("error");
 				return null;
 		}
 	}
+	public static void envoieCarto() {
+		System.out.println(" Voulez-vous envoyer la cartographie?\n");
+		System.out.println(" Gauche : Oui   Droit : Non");
+		int check = Button.waitForAnyPress();
+		switch (check) {
+			case Button.ID_LEFT:
+				Emetteur.emettreCartographie(carto);
+			case Button.ID_RIGHT:
+				break;
+		}
+	}
+	
+
 }

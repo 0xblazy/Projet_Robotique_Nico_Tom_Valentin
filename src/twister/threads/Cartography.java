@@ -210,6 +210,7 @@ public class Cartography extends Thread {
 				this.menu.notify();
 			}
 		}
+		Menu.envoieCarto();
 	}
 		
 }
